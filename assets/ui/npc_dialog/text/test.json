@@ -1,0 +1,16 @@
+{
+   Test[
+      {
+         "Text": "Wow, a new ticker!"
+      },
+      {
+         "Text": "This’ll help with the cholesterol levels."
+      },
+      {
+         "Text": "With two of these I’ll be way faster!"
+      },
+      {
+         "Text": "Who’s heartless now, Vinny!"
+      }
+   ]
+}
