@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://assets/ui/npc_dialog/portrait_1.png" type="Texture" id=1]
+[ext_resource path="res://src/dialog_system/dialog_node/dialog.gd" type="Script" id=2]
+[ext_resource path="res://assets/dialog/test/test_dialog-003.wav" type="AudioStream" id=3]
+
+[resource]
+script = ExtResource( 2 )
+portrait = ExtResource( 1 )
+text_filepath = "res://assets/dialog/test/test_dialog_3.json"
+audio = ExtResource( 3 )
