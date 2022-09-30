@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/test_scene/test_script.gd" type="Script" id=1]
+[ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
+[ext_resource path="res://src/player/PlayerRig.tscn" type="PackedScene" id=3]
+
+[sub_resource type="SpatialMaterial" id=1]
+vertex_color_use_as_albedo = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="ProceduralSky" id=2]
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 2 )
+
+[node name="TestScene" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42, 0 )
+width = 10.0
+height = 10.0
+depth = 10.0
+material = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+
+[node name="PlayerRig" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 13.1662 )
+
+[node name="Terrain" type="Spatial" parent="."]
+
+[node name="1" type="Spatial" parent="Terrain"]
+
+[node name="Floor" type="CSGBox" parent="Terrain/1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
+use_collision = true
+width = 70.0
+depth = 88.0
+
+[node name="CSGBox2" type="CSGBox" parent="Terrain/1"]
+transform = Transform( 0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -21, -2, 0 )
+use_collision = true
+width = 10.0
+height = 10.0
+depth = 20.0
+
+[node name="CSGBox3" type="CSGBox" parent="Terrain/1"]
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 7.28427, -2, -16.9706 )
+use_collision = true
+width = 10.0
+height = 10.0
+depth = 20.0
+
+[node name="CSGBox4" type="CSGBox" parent="Terrain/1"]
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 21.4264, -2, 21.2132 )
+use_collision = true
+width = 10.0
+height = 10.0
+depth = 20.0
+
+[node name="CSGBox5" type="CSGBox" parent="Terrain/1"]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -6.58047, -2, 26.1122 )
+use_collision = true
+width = 10.0
+height = 10.0
+depth = 20.0
+
+[node name="CSGCombiner" type="CSGCombiner" parent="Terrain/1"]
+operation = 2
+use_collision = true
+
+[node name="CSGBox6" type="CSGBox" parent="Terrain/1/CSGCombiner"]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
+use_collision = true
+width = 22.0
+height = 6.6
+depth = 60.0
+
+[node name="CSGBox7" type="CSGBox" parent="Terrain/1/CSGCombiner"]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
+operation = 2
+use_collision = true
+width = 16.0
+height = 4.6
+depth = 74.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
