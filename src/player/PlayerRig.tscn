@@ -1,21 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/player/PlayerController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/player/camera/CameraPivot.tscn" type="PackedScene" id=2]
-
-[sub_resource type="SphereShape" id=1]
-radius = 5.0
 
 [node name="PlayerRig" type="Spatial"]
 
 [node name="CameraPivot" parent="." instance=ExtResource( 2 )]
 camera_target = NodePath("../PlayerController")
-
-[node name="PlayerCameraCollision" type="Area" parent="."]
-collision_layer = 3
-collision_mask = 0
-
-[node name="CollisionShape" type="CollisionShape" parent="PlayerCameraCollision"]
-shape = SubResource( 1 )
 
 [node name="PlayerController" parent="." instance=ExtResource( 1 )]

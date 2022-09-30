@@ -19,6 +19,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	self.rotation.y = current_target.rotation.y
 
+
 func _unhandled_input(event):
 	# Get pitch and yaw values from relative mouse/joystick movement
 	if event is InputEventMouseMotion:
@@ -31,9 +32,10 @@ func _unhandled_input(event):
 	elif event is InputEventJoypadMotion:
 		is_using_controller = true
 
+
 func _physics_process(_delta):
 	self.global_transform.origin = current_target.global_transform.origin
-	# TODO - camera colliders
+
 
 func _process(delta):
 	if not GlobalFlags.CAMERA_CONTROLS_ACTIVE:

@@ -1,9 +1,12 @@
 extends KinematicBody
 class_name PlayerController
 
+onready var mesh = $MeshInstance
 onready var collider = $CollisionShape
 onready var tween = $Tween
 onready var audio_player = $AudioStreamPlayer3D
+
+onready var hue = 0
 
 # Array of all things that should rotate
 onready var rotateable = [
@@ -19,3 +22,11 @@ onready var movement_state = $StateMachine/Movement
 
 const SNAP_DIRECTION = Vector3.DOWN
 const SNAP_LENGTH = 32
+
+
+func _physics_process(delta):
+	hue += 0.001
+	if hue > 1:
+		hue = 0
+	var new_colour = Color.from_hsv(hue, 1, 1, 1)
+	mesh.get_surface_material(0).albedo_color = new_colour
