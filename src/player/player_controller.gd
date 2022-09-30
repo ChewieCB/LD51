@@ -24,7 +24,13 @@ const SNAP_DIRECTION = Vector3.DOWN
 const SNAP_LENGTH = 32
 
 
-func _physics_process(delta):
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT && event.pressed:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _physics_process(delta) -> void:
 	hue += 0.001
 	if hue > 1:
 		hue = 0
