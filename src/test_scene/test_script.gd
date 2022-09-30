@@ -10,4 +10,3 @@ func _physics_process(delta):
 		hue = 0
 	var new_colour = Color.from_hsv(hue, 1, 1, 1)
 	box.material.albedo_color = new_colour
-
