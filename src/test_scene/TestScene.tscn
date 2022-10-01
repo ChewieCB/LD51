@@ -94,19 +94,19 @@ use_collision = true
 transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
 use_collision = true
 width = 22.0
-height = 10.0
+height = 14.0
 depth = 60.0
 
 [node name="CSGBox7" type="CSGBox" parent="Terrain/1/CSGCombiner"]
-transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39.9, -52.2057 )
 operation = 2
 use_collision = true
 width = 16.0
-height = 8.0
+height = 9.2
 depth = 74.0
 
 [node name="Door" parent="Terrain" instance=ExtResource( 6 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -7, 0 )
+transform = Transform( 4.33013, 0, 2.5, 0, 5, 0, -2.5, 0, 4.33013, -8.35, 35, -26.6062 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
