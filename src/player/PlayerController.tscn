@@ -93,6 +93,7 @@ cast_to = Vector3( 0, -1, -1000 )
 
 [node name="WeaponStateMachine" type="Node" parent="Camera/Hand"]
 script = ExtResource( 2 )
+initial_state = NodePath("Ready")
 
 [node name="Ready" type="Node" parent="Camera/Hand/WeaponStateMachine"]
 script = ExtResource( 8 )
@@ -137,7 +138,7 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="GunCamera" type="Camera" parent="CanvasLayer/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 cull_mask = 2
 fov = 90.0
 script = ExtResource( 4 )
