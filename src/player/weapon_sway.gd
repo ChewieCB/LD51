@@ -2,7 +2,7 @@ extends Spatial
 
 var mouse_move
 var sway_threshold = 8
-var sway_lerp = 2
+var sway_lerp = 0
 
 export var sway_left: Vector3
 export var sway_right: Vector3

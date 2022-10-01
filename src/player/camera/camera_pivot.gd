@@ -1,12 +1,8 @@
 extends Spatial
 
-export (NodePath) var camera_target
-#onready var current_target = get_node(camera_target)
-onready var camera = $Camera
-
 export (float, 0.1, 25.0) var look_sensitivity = 15.0
-export var min_look_angle = -90.0
-export var max_look_angle = 90.0
+export var min_look_angle = -89.0
+export var max_look_angle = 89.0
 
 var camera_rotation = Vector3.ZERO
 var camera_lerp_goal = Vector3.ZERO
@@ -30,10 +26,6 @@ func _unhandled_input(event):
 			mouse_delta.y *= -1
 	elif event is InputEventJoypadMotion:
 		is_using_controller = true
-
-#
-#func _physics_process(_delta):
-#	self.global_transform.origin = current_target.global_transform.origin
 
 
 func _process(delta):

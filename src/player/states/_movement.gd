@@ -52,7 +52,6 @@ func get_input_direction() -> Vector3:
 		Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
 	)
 	
-	print(input_direction)
 	return input_direction
 
 
@@ -70,18 +69,6 @@ func calculate_movement_direction(input_direction, _delta) -> Vector3:
 	
 	if move_direction.length() > 1.0:
 		move_direction = move_direction.normalized()
-
-	# Rotation
-	if move_direction != Vector3.ZERO:
-		# Get the angle in the y-axis via atan2
-		var movement_angle = atan2(move_direction.x, move_direction.z) + PI
-		# lerp_angle prevents the flip-flopping between 0 and 360 degrees
-		for element in _actor.rotateable:
-			element.rotation.y = lerp_angle(
-				element.rotation.y,
-				movement_angle,
-				0.2
-			)
 	
 	return move_direction 
 
