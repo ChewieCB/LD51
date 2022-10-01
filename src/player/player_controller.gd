@@ -15,8 +15,8 @@ onready var rotateable = [
 	$MeshInstance
 ]
 
-onready var camera_pivot = $CameraPivot
-onready var camera = camera_pivot.camera
+onready var camera = $Camera
+onready var gun_camera = $CanvasLayer/ViewportContainer/Viewport/GunCamera
 
 onready var state_machine = $StateMachine
 onready var movement_state = $StateMachine/Movement
@@ -41,11 +41,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta) -> void:
-	hue += 0.001
-	if hue > 1:
-		hue = 0
-	var new_colour = Color.from_hsv(hue, 1, 1, 1)
-	mesh.get_surface_material(0).albedo_color = new_colour
+	gun_camera.global_transform = camera.global_transform
 
 
 func set_inertia(value):
