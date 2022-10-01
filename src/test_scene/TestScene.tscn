@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/test_scene/test_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
 [ext_resource path="res://src/player/PlayerRig.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/dialog_system/dialog_ui/NPCDialog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 vertex_color_use_as_albedo = true
@@ -103,6 +104,11 @@ use_collision = true
 width = 16.0
 height = 8.0
 depth = 74.0
+
+[node name="Enemies" type="Spatial" parent="."]
+
+[node name="SecurityCamera" parent="Enemies" instance=ExtResource( 6 )]
+transform = Transform( 0.172667, 0.633884, 0.753908, -0.0225576, 0.767748, -0.640355, -0.984722, 0.0935618, 0.146864, -12.1889, 2.77658, -3.70414 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )

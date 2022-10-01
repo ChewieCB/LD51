@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
+[ext_resource path="res://src/enemies/camera/security_camera.gd" type="Script" id=3]
+[ext_resource path="res://src/utils/state_machine/state.gd" type="Script" id=4]
+
+[sub_resource type="SphereMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.141176, 0.14902, 0.192157, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0, 1, 0.156863, 1 )
+
+[sub_resource type="SphereShape" id=2]
+
+[node name="SecurityCamera" type="KinematicBody"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
+collision_mask = 4
+script = ExtResource( 3 )
+
+[node name="BodyMesh" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="EyeMesh" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.98023e-08, 0, 0.7 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="Viewcone" parent="." instance=ExtResource( 1 )]
+transform = Transform( 4.12198e-07, -2.02602e-07, 9.43, -9.43, -6.55409e-07, 4.12198e-07, 4.94638e-07, -17.9928, -7.79416e-07, 7.68112e-07, 5.81361e-07, 17.3 )
+collision_layer = 0
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, -1.27233e-05, 0, 1, 0, -1.27232e-05, 0, 85.2623, -2.67263e-06, 0, 17.7 )
+cast_to = Vector3( 0, 0, -4 )
+collision_mask = 4
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+initial_state = NodePath("State")
+
+[node name="State" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Rays" type="Spatial" parent="."]
+
+[connection signal="body_entered" from="Viewcone" to="." method="_on_Viewcone_body_entered"]
+[connection signal="body_exited" from="Viewcone" to="." method="_on_Viewcone_body_exited"]
