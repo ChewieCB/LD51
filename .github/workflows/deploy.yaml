@@ -54,4 +54,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'A new build update is available at https://chewiecb.itch.io/ld51 !'
+          args: 'A new build update (Build ${{github.run_number}}) is available at https://chewiecb.itch.io/ld51 !'

@@ -21,8 +21,15 @@ onready var camera = camera_pivot.camera
 onready var state_machine = $StateMachine
 onready var movement_state = $StateMachine/Movement
 
+onready var debug_menu = $UI/DebugMenu
+
 const SNAP_DIRECTION = Vector3.DOWN
 const SNAP_LENGTH = 32
+
+
+func _ready():
+	debug_menu.floaty_slider.connect("value_changed", self, "set_inertia")
+	debug_menu.floaty_slider.value = movement_state.inertia
 
 
 func _input(event: InputEvent) -> void:
@@ -37,3 +44,8 @@ func _physics_process(delta) -> void:
 		hue = 0
 	var new_colour = Color.from_hsv(hue, 1, 1, 1)
 	mesh.get_surface_material(0).albedo_color = new_colour
+
+
+func set_inertia(value):
+	movement_state.inertia = value
+

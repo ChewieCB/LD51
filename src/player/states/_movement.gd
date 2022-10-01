@@ -24,6 +24,7 @@ var goal_quaternion
 
 
 func physics_update(delta: float):
+	print(inertia)
 	# Debug Reset
 	if Input.is_action_pressed("reset"):
 		if GlobalFlags.PLAYER_CONTROLS_ACTIVE == true:
