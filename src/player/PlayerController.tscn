@@ -90,6 +90,7 @@ cast_to = Vector3( 0, -1, -1000 )
 
 [node name="WeaponStateMachine" type="Node" parent="Camera/Hand"]
 script = ExtResource( 2 )
+initial_state = NodePath("Ready")
 
 [node name="Ready" type="Node" parent="Camera/Hand/WeaponStateMachine"]
 script = ExtResource( 8 )
