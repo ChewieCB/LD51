@@ -18,6 +18,9 @@ export (Material) var tracking_transparent_mat
 export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
+export var max_health = 100
+export var health = 100 setget set_health
+
 var has_seen_player = false setget set_has_seen_player
 var can_interact = false
 var target: PlayerController = null
@@ -141,6 +144,11 @@ func set_has_seen_player(value):
 			yield(tween, "tween_completed")
 			anim_player.play("rotate")
 
+
+func set_health(value):
+	health = clamp(value, 0, max_health)
+	if health == 0:
+		state_machine.transition_to("Destroyed")
 
 
 func _on_InteractionArea_body_entered(body):

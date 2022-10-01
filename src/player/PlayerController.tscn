@@ -84,6 +84,9 @@ layers = 2
 mesh = SubResource( 6 )
 skeleton = NodePath("../../..")
 
+[node name="Muzzle" type="Spatial" parent="Camera/Hand/GunMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.96046e-08, -0.5 )
+
 [node name="AimCast" type="RayCast" parent="Camera/Hand"]
 enabled = true
 cast_to = Vector3( 0, -1, -1000 )
@@ -94,12 +97,8 @@ initial_state = NodePath("Ready")
 
 [node name="Ready" type="Node" parent="Camera/Hand/WeaponStateMachine"]
 script = ExtResource( 8 )
-max_speed = null
-move_speed = null
-gravity = null
-jump_impulse = null
-rotation_speed_factor = null
-inertia = null
+
+[node name="GunAnimationPlayer" type="AnimationPlayer" parent="Camera/Hand"]
 
 [node name="Tween" type="Tween" parent="."]
 
