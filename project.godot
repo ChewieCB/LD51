@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "CameraStateMachine",
+"language": "GDScript",
+"path": "res://src/enemies/camera/states/state_machine.gd"
+}, {
 "base": "Resource",
 "class": "Dialog",
 "language": "GDScript",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://src/utils/state_machine/state_machine.gd"
 } ]
 _global_script_class_icons={
+"CameraStateMachine": "",
 "Dialog": "",
 "PlayerController": "",
 "State": "",

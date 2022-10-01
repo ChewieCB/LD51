@@ -2,10 +2,9 @@ extends State
 
 
 func enter(_msg := {}) -> void:
-	var new_colour = _actor.idle_colour
-	var new_colour_trans = new_colour; new_colour_trans.a = 0.5
-	_actor.eye_mesh.get_active_material(0).albedo_color = new_colour
-	_actor.viewcone_mesh.get_active_material(0).albedo_color = new_colour_trans
+	_actor.eye_mesh.set_surface_material(0, _actor.idle_mat)
+	_actor.viewcone_mesh.set_surface_material(0, _actor.idle_transparent_mat)
+
 
 func update(_delta: float) -> void:
 	pass

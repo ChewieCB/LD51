@@ -3,6 +3,7 @@ extends KinematicBody
 onready var state_machine = $StateMachine
 onready var pivot = $Pivot
 onready var eye_mesh = $Pivot/EyeMesh
+onready var viewcone = $Pivot/Viewcone
 onready var viewcone_mesh = $Pivot/Viewcone/Cone
 onready var ray = $Pivot/RayCast
 onready var anim_player = $AnimationPlayer
@@ -10,13 +11,12 @@ onready var tween = $Tween
 
 onready var initial_rotation = self.rotation_degrees
 
-export var angle_cone_of_vision := deg2rad(30.0)
-export var max_view_distance :=  40.0
-export var angle_between_rays := deg2rad(5.0)
-
-var idle_colour = Color.chartreuse
-var tracking_colour = Color.darkorange
-var alert_colour = Color.crimson
+export (Material) var idle_mat
+export (Material) var idle_transparent_mat
+export (Material) var tracking_mat
+export (Material) var tracking_transparent_mat
+export (Material) var alert_mat
+export (Material) var alert_transparent_mat
 
 var has_seen_player = false setget set_has_seen_player
 var target: PlayerController = null
@@ -35,12 +35,16 @@ func _physics_process(_delta):
 
 
 func ping_effect():
-	if state_machine.state == $StateMachine/Tracking:
-		state_machine.transition_to("Alert")
-	else:
-		state_machine.transition_to("Alert")
-		yield(get_tree().create_timer(0.2), "timeout")
-		state_machine.transition_to("Idle")
+	match state_machine.state.name:
+		"Idle":
+			# Flash red to indicate the ping has hit
+			state_machine.transition_to("Alert")
+			yield(get_tree().create_timer(0.5), "timeout")
+			state_machine.transition_to("Idle")
+		"Tracking":
+			state_machine.transition_to("Alert")
+	
+			
 
 
 func generate_debug_trajectory(trajectory_points, size):

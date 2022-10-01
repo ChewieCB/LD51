@@ -107,7 +107,13 @@ depth = 74.0
 [node name="Enemies" type="Spatial" parent="."]
 
 [node name="SecurityCamera" parent="Enemies" instance=ExtResource( 6 )]
-transform = Transform( 0.707107, 0.353553, 0.612373, 0, 0.866025, -0.5, -0.707107, 0.353553, 0.612373, -12.1889, 2.77658, -3.70414 )
+transform = Transform( 0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, 0.5, 0.5, -15.7889, 2.77658, 1.89586 )
+
+[node name="SecurityCamera2" parent="Enemies" instance=ExtResource( 6 )]
+transform = Transform( 0.866025, -0.353553, -0.353553, 0, 0.707107, -0.707107, 0.5, 0.612372, 0.612372, 9.2111, 2.77658, -7.10414 )
+
+[node name="SecurityCamera3" parent="Enemies" instance=ExtResource( 6 )]
+transform = Transform( -0.707107, -0.5, -0.5, 0, 0.707107, -0.707107, 0.707107, -0.5, -0.5, 20.2111, 2.77658, 14.8959 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
