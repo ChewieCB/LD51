@@ -7,7 +7,7 @@ extends State
 # These should be fallback defaults
 # TODO: Make these null and raise an exception to indicate bad State extension
 #       to better separate movement vars.
-export var max_speed = 20
+export var max_speed = 100
 export var move_speed = 20
 export var gravity = 0.0
 export var jump_impulse = 35
