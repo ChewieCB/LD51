@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/test_scene/test_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
 [ext_resource path="res://src/player/PlayerRig.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/dialog_system/dialog_ui/NPCDialog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/models/environment/door/Door.glb" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 vertex_color_use_as_albedo = true
@@ -93,16 +94,19 @@ use_collision = true
 transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
 use_collision = true
 width = 22.0
-height = 10.0
+height = 14.0
 depth = 60.0
 
 [node name="CSGBox7" type="CSGBox" parent="Terrain/1/CSGCombiner"]
-transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39.9, -52.2057 )
 operation = 2
 use_collision = true
 width = 16.0
-height = 8.0
+height = 9.2
 depth = 74.0
+
+[node name="Door" parent="Terrain" instance=ExtResource( 6 )]
+transform = Transform( 4.33013, 0, 2.5, 0, 5, 0, -2.5, 0, 4.33013, -8.35, 35, -26.6062 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
