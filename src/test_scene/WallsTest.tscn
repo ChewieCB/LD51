@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/models/environment/door/Door.glb" type="PackedScene" id=1]
 [ext_resource path="res://assets/models/environment/walls/Edge Top.glb" type="PackedScene" id=2]
@@ -12,234 +12,251 @@
 [ext_resource path="res://assets/models/environment/walls/Wall with Door.glb" type="PackedScene" id=10]
 [ext_resource path="res://assets/models/environment/walls/Wall.glb" type="PackedScene" id=11]
 [ext_resource path="res://assets/models/environment/walls/Wall Corner.glb" type="PackedScene" id=12]
+[ext_resource path="res://src/player/PlayerRig.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=15]
 
 [node name="Spatial" type="Spatial"]
 
-[node name="Door" parent="." instance=ExtResource( 1 )]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Edge Top with Door" parent="." instance=ExtResource( 3 )]
+[node name="PauseMenu" parent="UI" instance=ExtResource( 14 )]
+
+[node name="Geom" type="Spatial" parent="."]
+
+[node name="Door" parent="Geom" instance=ExtResource( 1 )]
+
+[node name="Edge Top with Door" parent="Geom" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
-[node name="Edge Bottom" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0 )
 
-[node name="Edge Top" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, 0 )
 
-[node name="Edge Bottom2" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom2" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 1.5 )
 
-[node name="Edge Top2" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top2" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 1.5, 1.5 )
 
-[node name="Edge Bottom3" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom3" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 3 )
 
-[node name="Edge Top3" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top3" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 1.5, 3 )
 
-[node name="Edge Bottom6" parent="." instance=ExtResource( 4 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.38419e-07, 0, 4.5 )
+[node name="Edge Bottom6" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -2.38419e-07, 0, 4.5 )
 
-[node name="Edge Top6" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.38419e-07, 1.5, 4.5 )
+[node name="Edge Top6" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -2.38419e-07, 1.5, 4.5 )
 
-[node name="Edge Bottom7" parent="." instance=ExtResource( 4 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.5, 0, 4.5 )
+[node name="Edge Bottom7" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 1.5, 0, 4.5 )
 
-[node name="Edge Top7" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.5, 1.5, 4.5 )
+[node name="Edge Top7" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 1.5, 1.5, 4.5 )
 
-[node name="Edge Bottom with Door" parent="." instance=ExtResource( 5 )]
+[node name="Edge Bottom with Door" parent="Geom" instance=ExtResource( 5 )]
 
-[node name="Corner Bottom" parent="." instance=ExtResource( 6 )]
+[node name="Corner Bottom" parent="Geom" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )
 
-[node name="Corner Top" parent="." instance=ExtResource( 7 )]
+[node name="Corner Top" parent="Geom" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0 )
 
-[node name="Edge Bottom4" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom4" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 0, 3 )
 
-[node name="Edge Top4" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top4" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.5, 3 )
 
-[node name="Edge Bottom5" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom5" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 0, 1.5 )
 
-[node name="Edge Top5" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top5" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.5, 1.5 )
 
-[node name="Corner Bottom2" parent="." instance=ExtResource( 6 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 0, 4.5 )
+[node name="Corner Bottom2" parent="Geom" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 0, 4.5 )
 
-[node name="Corner Top2" parent="." instance=ExtResource( 7 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 1.5, 4.5 )
+[node name="Corner Top2" parent="Geom" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 1.5, 4.5 )
 
-[node name="Corner Bottom4" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 3, 0, 4.5 )
+[node name="Corner Bottom4" parent="Geom" instance=ExtResource( 6 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 3, 0, 4.5 )
 
-[node name="Corner Top4" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 3, 1.5, 4.5 )
+[node name="Corner Top4" parent="Geom" instance=ExtResource( 7 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 3, 1.5, 4.5 )
 
-[node name="Corner Bottom3" parent="." instance=ExtResource( 6 )]
+[node name="Corner Bottom3" parent="Geom" instance=ExtResource( 6 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 0, 0 )
 
-[node name="Corner Top3" parent="." instance=ExtResource( 7 )]
+[node name="Corner Top3" parent="Geom" instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.5, 0 )
 
-[node name="Floor" parent="." instance=ExtResource( 9 )]
+[node name="Floor" parent="Geom" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
 
-[node name="Floor2" parent="." instance=ExtResource( 9 )]
+[node name="Floor2" parent="Geom" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1.5 )
 
-[node name="Floor3" parent="." instance=ExtResource( 9 )]
+[node name="Floor3" parent="Geom" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="Floor4" parent="." instance=ExtResource( 9 )]
+[node name="Floor4" parent="Geom" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 3 )
 
-[node name="Ceiling" parent="." instance=ExtResource( 8 )]
+[node name="Ceiling" parent="Geom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.5 )
 
-[node name="Ceiling2" parent="." instance=ExtResource( 8 )]
+[node name="Ceiling2" parent="Geom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3 )
 
-[node name="Ceiling3" parent="." instance=ExtResource( 8 )]
+[node name="Ceiling3" parent="Geom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, 1.5 )
 
-[node name="Ceiling4" parent="." instance=ExtResource( 8 )]
+[node name="Ceiling4" parent="Geom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, 3 )
 
-[node name="Edge Bottom8" parent="." instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.5, 0, -1.5 )
+[node name="Edge Bottom8" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 0, -1.5 )
 
-[node name="Edge Top8" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.5, 3, -1.5 )
+[node name="Edge Top8" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 3, -1.5 )
 
-[node name="Edge Top15" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 9.53674e-07, 3, -1.5 )
+[node name="Edge Top15" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 9.53674e-07, 3, -1.5 )
 
-[node name="Edge Bottom9" parent="." instance=ExtResource( 4 )]
-transform = Transform( -5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, -3, 0, -3 )
+[node name="Edge Bottom9" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0, -3 )
 
-[node name="Edge Top9" parent="." instance=ExtResource( 2 )]
-transform = Transform( -5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, -3, 3, -3 )
+[node name="Edge Top9" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3, -3 )
 
-[node name="Edge Bottom10" parent="." instance=ExtResource( 4 )]
-transform = Transform( -5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, -3, 0, -4.5 )
+[node name="Edge Bottom10" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0, -4.5 )
 
-[node name="Edge Top10" parent="." instance=ExtResource( 2 )]
-transform = Transform( -5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, -3, 3, -4.5 )
+[node name="Edge Top10" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3, -4.5 )
 
-[node name="Edge Bottom11" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom11" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 0, -6 )
 
-[node name="Edge Top11" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top11" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 3, -6 )
 
-[node name="Edge Bottom12" parent="." instance=ExtResource( 4 )]
+[node name="Edge Bottom12" parent="Geom" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -6 )
 
-[node name="Edge Top12" parent="." instance=ExtResource( 2 )]
+[node name="Edge Top12" parent="Geom" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3, -6 )
 
-[node name="Edge Bottom with Door2" parent="." instance=ExtResource( 5 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 9.53674e-07, 0, -1.5 )
+[node name="Edge Bottom with Door2" parent="Geom" instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 9.53674e-07, 0, -1.5 )
 
-[node name="Corner Bottom5" parent="." instance=ExtResource( 6 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -3, 0, -1.5 )
+[node name="Corner Bottom5" parent="Geom" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -3, 0, -1.5 )
 
-[node name="Corner Top5" parent="." instance=ExtResource( 7 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -3, 3, -1.5 )
+[node name="Corner Top5" parent="Geom" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -3, 3, -1.5 )
 
-[node name="Edge Bottom13" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1.19209e-07, 0, -1, 0, 1, 0, 1, 0, 1.19209e-07, 1.5, 0, -4.5 )
+[node name="Edge Bottom13" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 1.5, 0, -4.5 )
 
-[node name="Edge Top13" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1.19209e-07, 0, -1, 0, 1, 0, 1, 0, 1.19209e-07, 1.5, 3, -4.5 )
+[node name="Edge Top13" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 1.5, 3, -4.5 )
 
-[node name="Edge Bottom14" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1.19209e-07, 0, -1, 0, 1, 0, 1, 0, 1.19209e-07, 1.5, 0, -3 )
+[node name="Edge Bottom14" parent="Geom" instance=ExtResource( 4 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 1.5, 0, -3 )
 
-[node name="Edge Top14" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1.19209e-07, 0, -1, 0, 1, 0, 1, 0, 1.19209e-07, 1.5, 3, -3 )
+[node name="Edge Top14" parent="Geom" instance=ExtResource( 2 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 1.5, 3, -3 )
 
-[node name="Corner Bottom6" parent="." instance=ExtResource( 6 )]
+[node name="Corner Bottom6" parent="Geom" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 1.78814e-07, 0, 1, 0, -1.78814e-07, 0, 1, 1.5, 0, -6 )
 
-[node name="Corner Top6" parent="." instance=ExtResource( 7 )]
+[node name="Corner Top6" parent="Geom" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 1.78814e-07, 0, 1, 0, -1.78814e-07, 0, 1, 1.5, 3, -6 )
 
-[node name="Corner Bottom7" parent="." instance=ExtResource( 6 )]
-transform = Transform( -2.23517e-07, 0, 1, 0, 1, 0, -1, 0, -2.23517e-07, -3, 0, -6 )
+[node name="Corner Bottom7" parent="Geom" instance=ExtResource( 6 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -3, 0, -6 )
 
-[node name="Corner Top7" parent="." instance=ExtResource( 7 )]
-transform = Transform( -2.23517e-07, 0, 1, 0, 1, 0, -1, 0, -2.23517e-07, -3, 3, -6 )
+[node name="Corner Top7" parent="Geom" instance=ExtResource( 7 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -3, 3, -6 )
 
-[node name="Corner Bottom8" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1.19209e-07, 0, -1, 0, 1, 0, 1, 0, 1.19209e-07, 1.5, 0, -1.5 )
+[node name="Corner Bottom8" parent="Geom" instance=ExtResource( 6 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 1.5, 0, -1.5 )
 
-[node name="Corner Top8" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1.19209e-07, 0, -1, 0, 1, 0, 1, 0, 1.19209e-07, 1.5, 3, -1.5 )
+[node name="Corner Top8" parent="Geom" instance=ExtResource( 7 )]
+transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 1.5, 3, -1.5 )
 
-[node name="Floor5" parent="." instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 0, -3 )
+[node name="Floor5" parent="Geom" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -3 )
 
-[node name="Floor6" parent="." instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.5, 0, -3 )
+[node name="Floor6" parent="Geom" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 0, -3 )
 
-[node name="Floor7" parent="." instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 4.76837e-07, 0, -4.5 )
+[node name="Floor7" parent="Geom" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 4.76837e-07, 0, -4.5 )
 
-[node name="Floor8" parent="." instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.5, 0, -4.5 )
+[node name="Floor8" parent="Geom" instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 0, -4.5 )
 
-[node name="Ceiling5" parent="." instance=ExtResource( 8 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 3, -3 )
+[node name="Ceiling5" parent="Geom" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 3, -3 )
 
-[node name="Ceiling6" parent="." instance=ExtResource( 8 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 4.76837e-07, 3, -4.5 )
+[node name="Ceiling6" parent="Geom" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 4.76837e-07, 3, -4.5 )
 
-[node name="Ceiling7" parent="." instance=ExtResource( 8 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.5, 3, -3 )
+[node name="Ceiling7" parent="Geom" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 3, -3 )
 
-[node name="Ceiling8" parent="." instance=ExtResource( 8 )]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.5, 3, -4.5 )
+[node name="Ceiling8" parent="Geom" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 3, -4.5 )
 
-[node name="Wall Corner" parent="." instance=ExtResource( 12 )]
+[node name="Wall Corner" parent="Geom" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, -6 )
 
-[node name="Wall Corner2" parent="." instance=ExtResource( 12 )]
+[node name="Wall Corner2" parent="Geom" instance=ExtResource( 12 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 1.5, -1.5 )
 
-[node name="Wall Corner3" parent="." instance=ExtResource( 12 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3, 1.5, -1.5 )
+[node name="Wall Corner3" parent="Geom" instance=ExtResource( 12 )]
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -3, 1.5, -1.5 )
 
-[node name="Wall Corner4" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -3, 1.5, -6 )
+[node name="Wall Corner4" parent="Geom" instance=ExtResource( 12 )]
+transform = Transform( 7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, -3, 1.5, -6 )
 
-[node name="Wall with Door" parent="." instance=ExtResource( 10 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, -1.5 )
+[node name="Wall with Door" parent="Geom" instance=ExtResource( 10 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 1.5, -1.5 )
 
-[node name="Wall" parent="." instance=ExtResource( 11 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 1.5, -1.5 )
+[node name="Wall" parent="Geom" instance=ExtResource( 11 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 1.5, -1.5 )
 
-[node name="Wall2" parent="." instance=ExtResource( 11 )]
+[node name="Wall2" parent="Geom" instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 1.5, -3 )
 
-[node name="Wall3" parent="." instance=ExtResource( 11 )]
+[node name="Wall3" parent="Geom" instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 1.5, -4.5 )
 
-[node name="Wall4" parent="." instance=ExtResource( 11 )]
+[node name="Wall4" parent="Geom" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, -1.5, 1.5, -6 )
 
-[node name="Wall5" parent="." instance=ExtResource( 11 )]
+[node name="Wall5" parent="Geom" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 1.5, -6 )
 
-[node name="Wall6" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1.58933e-08, 0, -1, 0, 1, 0, 1, 0, 1.58933e-08, 1.5, 1.5, -4.5 )
+[node name="Wall6" parent="Geom" instance=ExtResource( 11 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 1.5, -4.5 )
 
-[node name="Wall7" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1.58933e-08, 0, -1, 0, 1, 0, 1, 0, 1.58933e-08, 1.5, 1.5, -3 )
+[node name="Wall7" parent="Geom" instance=ExtResource( 11 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 1.5, -3 )
+
+[node name="PlayerRig" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3 )
+
+[node name="Cameras" type="Spatial" parent="."]
+
+[node name="SecurityCamera" parent="Cameras" instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -1.50996e-07, -7.5498e-08, 0.866025, 0.5, 1.30766e-07, 0.5, -0.866025, 0, 2.7, -6.1 )

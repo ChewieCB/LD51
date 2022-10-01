@@ -33,7 +33,7 @@ func _ready():
 func _physics_process(_delta):
 	if has_seen_player == true:
 		pivot.look_at(target.global_transform.origin, self.global_transform.basis.y)
-		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
+#		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
 
 
 func _input(event):
