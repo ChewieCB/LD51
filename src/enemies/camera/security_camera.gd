@@ -23,15 +23,24 @@ var target: PlayerController = null
 
 var debug_trajectory_meshes = []
 
-#
-#func _ready():
-#	generate_raycasts()
+
+func _ready():
+	PingTimer.connect("timeout", self, "ping_effect")
 
 
 func _physics_process(_delta):
 	if has_seen_player == true:
 		pivot.look_at(target.global_transform.origin, self.global_transform.basis.y)
 		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
+
+
+func ping_effect():
+	if state_machine.state == $StateMachine/Tracking:
+		state_machine.transition_to("Alert")
+	else:
+		state_machine.transition_to("Alert")
+		yield(get_tree().create_timer(0.2), "timeout")
+		state_machine.transition_to("Idle")
 
 
 func generate_debug_trajectory(trajectory_points, size):
@@ -89,7 +98,7 @@ func set_has_seen_player(value):
 	has_seen_player = value
 	match has_seen_player:
 		true:
-			state_machine.transition_to("StateMachine/Tracking")
+			state_machine.transition_to("Tracking")
 			anim_player.stop()
 #			if ray.is_colliding():
 #				if ray.get_collider() is PlayerController:
@@ -99,7 +108,7 @@ func set_has_seen_player(value):
 		false:
 			if not tween.is_inside_tree():
 				return
-			state_machine.transition_to("StateMachine/Idle")
+			state_machine.transition_to("Idle")
 			tween.interpolate_property(
 				pivot, "rotation_degrees",
 				pivot.rotation_degrees, Vector3.ZERO,

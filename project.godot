@@ -46,6 +46,7 @@ config/icon="res://icon.png"
 
 GlobalFlags="*res://src/utils/GlobalFlags.gd"
 Utils="*res://src/utils/Utils.gd"
+PingTimer="*res://src/global/ping_timer/PingTimer.tscn"
 
 [display]
 
