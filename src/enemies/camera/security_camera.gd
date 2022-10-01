@@ -7,6 +7,7 @@ onready var viewcone = $Pivot/Viewcone
 onready var viewcone_mesh = $Pivot/Viewcone/Cone
 onready var ray = $Pivot/RayCast
 onready var anim_player = $AnimationPlayer
+onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
 
 onready var initial_rotation = self.rotation_degrees
