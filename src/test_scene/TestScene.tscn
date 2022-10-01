@@ -5,7 +5,9 @@
 [ext_resource path="res://src/player/PlayerRig.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/dialog_system/dialog_ui/NPCDialog.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/models/environment/door_control/Door Control.glb" type="PackedScene" id=7]
+[ext_resource path="res://assets/models/environment/door/Door.glb" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 vertex_color_use_as_albedo = true
@@ -93,27 +95,31 @@ use_collision = true
 transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
 use_collision = true
 width = 22.0
-height = 10.0
+height = 14.0
 depth = 60.0
 
 [node name="CSGBox7" type="CSGBox" parent="Terrain/1/CSGCombiner"]
-transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39, -52.2057 )
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -22.9299, 39.9, -52.2057 )
 operation = 2
 use_collision = true
 width = 16.0
-height = 8.0
+height = 9.2
 depth = 74.0
 
 [node name="Enemies" type="Spatial" parent="."]
 
-[node name="SecurityCamera" parent="Enemies" instance=ExtResource( 6 )]
+[node name="SecurityCamera" parent="Enemies" instance=ExtResource( 8 )]
 transform = Transform( 0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, 0.5, 0.5, -15.7889, 2.77658, 1.89586 )
 
-[node name="SecurityCamera2" parent="Enemies" instance=ExtResource( 6 )]
+[node name="SecurityCamera2" parent="Enemies" instance=ExtResource( 8 )]
 transform = Transform( 0.866025, -0.353553, -0.353553, 0, 0.707107, -0.707107, 0.5, 0.612372, 0.612372, 9.2111, 2.77658, -7.10414 )
 
-[node name="SecurityCamera3" parent="Enemies" instance=ExtResource( 6 )]
+[node name="SecurityCamera3" parent="Enemies" instance=ExtResource( 8 )]
 transform = Transform( -0.707107, -0.5, -0.5, 0, 0.707107, -0.707107, 0.707107, -0.5, -0.5, 20.2111, 2.77658, 14.8959 )
+[node name="Door Control" parent="Terrain" instance=ExtResource( 7 )]
+transform = Transform( 3.4641, 0, 2, 0, 4, 0, -2, 0, 3.4641, -15.7969, 39, -21.6969 )
+[node name="Door" parent="Terrain" instance=ExtResource( 6 )]
+transform = Transform( 4.33013, 0, 2.5, 0, 5, 0, -2.5, 0, 4.33013, -8.35, 35, -26.6062 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
