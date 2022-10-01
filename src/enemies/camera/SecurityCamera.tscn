@@ -15,15 +15,12 @@
 [ext_resource path="res://src/enemies/camera/states/destroyed.gd" type="Script" id=13]
 
 [sub_resource type="SphereMesh" id=3]
-radius = 0.25
-height = 0.5
 
 [sub_resource type="SpatialMaterial" id=4]
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.141176, 0.14902, 0.192157, 1 )
 
 [sub_resource type="SphereShape" id=2]
-radius = 0.25
 
 [sub_resource type="Animation" id=10]
 resource_name = "death"
@@ -37,7 +34,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 80, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( -80, 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Pivot:scale")
@@ -71,11 +68,11 @@ tracks/0/keys = {
 }
 
 [sub_resource type="SphereShape" id=7]
-radius = 2.0
+radius = 4.0
 
 [sub_resource type="SphereMesh" id=8]
-radius = 2.0
-height = 4.0
+radius = 4.0
+height = 8.0
 
 [sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
@@ -102,19 +99,19 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 4 )
 
 [node name="EyeMesh" type="MeshInstance" parent="Pivot"]
-transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 3.60313e-06, 0, -0.259546 )
+transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 3.67863e-06, 0, -0.759546 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 10 )
 
 [node name="Viewcone" parent="Pivot" instance=ExtResource( 1 )]
-transform = Transform( -1.09278e-07, -2.18557e-07, -2.5, -2.5, -2.18557e-07, 1.09278e-07, -1.09278e-07, 5, -1.09278e-07, 3.9456e-07, 5.81361e-07, -4.9 )
+transform = Transform( -4.37112e-07, -8.74228e-07, -10, -10, -8.74228e-07, 4.37112e-07, -4.37114e-07, 20, -4.37114e-07, 2.29711e-06, 5.81361e-07, -17.5 )
 collision_layer = 0
 
 [node name="RayCast" type="RayCast" parent="Pivot"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50996e-08, 0, 0.1 )
 enabled = true
-cast_to = Vector3( 0, 0, -10 )
+cast_to = Vector3( 0, 0, -38 )
 debug_shape_custom_color = Color( 1, 0, 0, 1 )
 debug_shape_thickness = 5
 
@@ -137,16 +134,14 @@ script = ExtResource( 6 )
 [node name="Destroyed" type="Node" parent="StateMachine"]
 script = ExtResource( 13 )
 
-[node name="PulseTimer" type="Timer" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "rotate"
 anims/death = SubResource( 10 )
 anims/rotate = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="InteractionArea" type="Area" parent="."]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
 shape = SubResource( 7 )

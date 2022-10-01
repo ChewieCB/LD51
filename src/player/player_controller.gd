@@ -17,6 +17,9 @@ onready var rotateable = [
 
 onready var camera = $Camera
 onready var gun_camera = $CanvasLayer/ViewportContainer/Viewport/GunCamera
+onready var gun_anim_player = $Camera/Hand/GunAnimationPlayer
+onready var muzzle = $Camera/Hand/GunMesh/Muzzle
+onready var aim_cast = $Camera/Hand/AimCast
 
 onready var state_machine = $StateMachine
 onready var movement_state = $StateMachine/Movement
@@ -32,6 +35,9 @@ func _ready():
 	debug_menu.floaty_slider.value = movement_state.inertia
 	debug_menu.speed_slider.connect("value_changed", self, "set_speed")
 	debug_menu.speed_slider.value = movement_state.move_speed
+	
+	var main_env = camera.get_environment()
+	gun_camera.set_environment(main_env)
 
 
 func _input(event: InputEvent) -> void:
