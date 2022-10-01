@@ -1,92 +1,414 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/enemies/camera/materials/Idle.material" type="Material" id=2]
+[ext_resource path="res://src/enemies/turret/turret.gd" type="Script" id=3]
+[ext_resource path="res://src/enemies/turret/states/idle.gd" type="Script" id=4]
+[ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=5]
+[ext_resource path="res://src/enemies/camera/materials/Tracking.material" type="Material" id=6]
+[ext_resource path="res://src/enemies/camera/materials/AlertTransparent.material" type="Material" id=7]
+[ext_resource path="res://src/enemies/camera/materials/TrackingTransparent.material" type="Material" id=8]
+[ext_resource path="res://src/enemies/camera/materials/Alert.material" type="Material" id=9]
+[ext_resource path="res://src/enemies/camera/materials/IdleTransparent.material" type="Material" id=10]
+[ext_resource path="res://assets/audio/enemies/turret/turret_activate.wav" type="AudioStream" id=11]
+[ext_resource path="res://src/enemies/turret/states/tracking.gd" type="Script" id=12]
+[ext_resource path="res://src/enemies/turret/states/alert.gd" type="Script" id=13]
+[ext_resource path="res://src/enemies/turret/states/destroyed.gd" type="Script" id=14]
+[ext_resource path="res://src/enemies/turret/states/shooting.gd" type="Script" id=15]
 
 [sub_resource type="CylinderMesh" id=1]
-top_radius = 0.25
-bottom_radius = 0.5
-height = 0.5
+top_radius = 0.5
+height = 1.0
 
 [sub_resource type="CylinderMesh" id=2]
-top_radius = 0.25
-bottom_radius = 0.25
-height = 0.5
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
 
 [sub_resource type="SphereMesh" id=5]
-radius = 0.25
-height = 0.5
+radius = 0.5
+height = 1.0
 
 [sub_resource type="CubeMesh" id=3]
-size = Vector3( 0.125, 0.2, 1 )
+size = Vector3( 0.25, 0.4, 2 )
 
 [sub_resource type="PrismMesh" id=4]
-size = Vector3( 0.5, 0.25, 0.5 )
+size = Vector3( 1, 0.5, 1 )
 
 [sub_resource type="CapsuleShape" id=6]
-radius = 0.5
+
+[sub_resource type="CylinderShape" id=7]
+height = 1.0
+
+[sub_resource type="Animation" id=9]
+resource_name = "activate"
+length = 1.7
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -4, 0 ), Vector3( 0, -0.5, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Rotate/Viewcone:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Rotate:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -180, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CollisionBase:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pivot/Rotate/EyeMesh:material/0")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.7, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 10 ), ExtResource( 10 ), ExtResource( 2 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Pivot/Rotate/Gun1:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.1, 1.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 0.4, 0.4 ), Vector3( 0.5, 0.4, 0.4 ), Vector3( 0.5, 0.4, -0.5 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Pivot/Rotate/Gun2:translation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.25, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.5, 0.4, 0.4 ), Vector3( -0.5, 0.4, 0.4 ), Vector3( -0.5, 0.4, -0.5 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Pivot/Rotate/Gun3:translation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1.45, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0.4 ), Vector3( 0, 1, 0.4 ), Vector3( 0, 1, -0.5 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( -0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "hidden"
+length = 1.7
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -4, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/Rotate/Viewcone:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pivot/Rotate:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CollisionBase:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pivot/Rotate/EyeMesh:material/0")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 10 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Pivot/Rotate/Gun1:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 0.4, 0.4 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Pivot/Rotate/Gun2:translation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.5, 0.4, 0.4 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Pivot/Rotate/Gun3:translation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0.4 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "rotate"
+length = 10.0
+loop = true
+step = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Rotate:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5, 5, 7.5, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ) ]
+}
 
 [node name="Turret" type="KinematicBody"]
+script = ExtResource( 3 )
+idle_mat = ExtResource( 2 )
+idle_transparent_mat = ExtResource( 10 )
+tracking_mat = ExtResource( 6 )
+tracking_transparent_mat = ExtResource( 8 )
+alert_mat = ExtResource( 9 )
+alert_transparent_mat = ExtResource( 7 )
 
 [node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
 
 [node name="Base" type="MeshInstance" parent="Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 mesh = SubResource( 1 )
 
-[node name="Rotate" type="Spatial" parent="Pivot"]
-
-[node name="Body" type="MeshInstance" parent="Pivot/Rotate"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+[node name="Body" type="MeshInstance" parent="Pivot"]
+transform = Transform( 0.760207, 0, 0.649681, 0, 1, 0, -0.649681, 0, 0.760207, 0, 2, 0 )
 mesh = SubResource( 2 )
-skeleton = NodePath("../..")
+
+[node name="Rotate" type="Spatial" parent="Pivot"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2.5, 0 )
 
 [node name="AimJoint" type="MeshInstance" parent="Pivot/Rotate"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0999999, 0 )
 mesh = SubResource( 5 )
 
+[node name="EyeMesh" type="MeshInstance" parent="Pivot/Rotate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 10 )
+
 [node name="Gun1" type="MeshInstance" parent="Pivot/Rotate"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.9, -0.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.4, 0.4 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 
 [node name="AimCast" type="RayCast" parent="Pivot/Rotate/Gun1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 7
 debug_shape_custom_color = Color( 1, 0, 0, 1 )
 debug_shape_thickness = 5
 
 [node name="Gun2" type="MeshInstance" parent="Pivot/Rotate"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.9, -0.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.4, 0.4 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 
 [node name="AimCast" type="RayCast" parent="Pivot/Rotate/Gun2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0, -1 )
 cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 7
 debug_shape_custom_color = Color( 1, 0, 0, 1 )
 debug_shape_thickness = 5
 
 [node name="Gun3" type="MeshInstance" parent="Pivot/Rotate"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 1.1, -0.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.4 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 
 [node name="AimCast" type="RayCast" parent="Pivot/Rotate/Gun3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0, -1 )
 cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 7
 debug_shape_custom_color = Color( 1, 0, 0, 1 )
 debug_shape_thickness = 5
 
 [node name="HeadMount" type="MeshInstance" parent="Pivot/Rotate"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.1, -4.37114e-09 )
+transform = Transform( 1, 0, 1.77636e-15, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.66454e-15, 0.4, 2.62268e-08 )
 mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 
-[node name="Viewcone" parent="Pivot" instance=ExtResource( 1 )]
-transform = Transform( 5, 0, 0, 0, -4.37114e-07, -5, 0, 10, -2.18557e-07, 0, 1, -8.9 )
+[node name="Viewcone" parent="Pivot/Rotate" instance=ExtResource( 1 )]
+transform = Transform( 5, 0, 0, 0, -8.74228e-07, -5, 0, 20, -2.18557e-07, 0, 0.7, -15.9 )
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.7, 7.43094e-08 )
 shape = SubResource( 6 )
+disabled = true
+
+[node name="CollisionBase" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 7 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "hidden"
+anims/activate = SubResource( 9 )
+anims/hidden = SubResource( 10 )
+anims/rotate = SubResource( 8 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 5 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Tracking" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
+
+[node name="Alert" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
+
+[node name="Shooting" type="Node" parent="StateMachine"]
+script = ExtResource( 15 )
+
+[node name="Destroyed" type="Node" parent="StateMachine"]
+script = ExtResource( 14 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 11 )

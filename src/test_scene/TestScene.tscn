@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/test_scene/test_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/models/environment/modular_level_tiles.tres" type="MeshLibrary" id=6]
 [ext_resource path="res://assets/models/environment/door/Door - Temp.material" type="Material" id=7]
 [ext_resource path="res://assets/models/environment/door/Door Frame - Temp.material" type="Material" id=8]
+[ext_resource path="res://src/enemies/turret/Turret.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ProceduralSky" id=2]
@@ -139,16 +140,17 @@ environment = SubResource( 3 )
 
 [node name="Cameras" type="Spatial" parent="."]
 
-[node name="SecurityCamera" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
-transform = Transform( -0.724446, -0.249999, 0.642401, 0.187929, 0.82499, 0.532986, -0.663221, 0.506844, -0.550679, 21, 11.9216, -55.8034 )
-
-[node name="SecurityCamera2" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
-transform = Transform( -0.677076, 0.433013, -0.595036, 0.0657779, 0.840941, 0.537114, 0.732968, 0.324527, -0.597863, -25.8, 12.0784, -57.5966 )
-
 [node name="SecurityCamera3" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
 transform = Transform( -0.984335, 0.171011, -0.0428966, 0.118481, 0.82178, 0.557351, 0.130565, 0.543537, -0.829168, -3, 12, -85.8 )
+linked_turrets = [ NodePath("../../Turrets/Turret"), NodePath("../../Turrets/Turret2") ]
 
 [node name="Turrets" type="Spatial" parent="."]
+
+[node name="Turret" parent="Turrets" groups=["Enemy"] instance=ExtResource( 9 )]
+transform = Transform( -0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 6, 0.4, -63 )
+
+[node name="Turret2" parent="Turrets" groups=["Enemy"] instance=ExtResource( 9 )]
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -12, 0.4, -63 )
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 6 )
