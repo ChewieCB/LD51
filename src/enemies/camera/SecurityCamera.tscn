@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/enemies/camera/states/state_machine.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://src/enemies/camera/materials/AlertTransparent.material" type="Material" id=11]
 [ext_resource path="res://src/enemies/camera/materials/Tracking.material" type="Material" id=12]
 [ext_resource path="res://src/enemies/camera/states/destroyed.gd" type="Script" id=13]
+[ext_resource path="res://assets/audio/enemies/destroy_1.wav" type="AudioStream" id=14]
 
 [sub_resource type="SphereMesh" id=3]
 
@@ -149,6 +150,11 @@ shape = SubResource( 7 )
 [node name="MeshInstance" type="MeshInstance" parent="InteractionArea"]
 mesh = SubResource( 8 )
 material/0 = SubResource( 9 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 14 )
+attenuation_model = 3
+unit_size = 3.0
 
 [connection signal="body_entered" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_entered"]
 [connection signal="body_exited" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_exited"]

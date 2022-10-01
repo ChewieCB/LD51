@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/ScifiRifle.glb-703f3a7f1051a006afa5bb4410f78464.scn"
+path="res://.import/ScifiRifle.glb-2b1bea28aa71c4f6165093bba18c71f7.scn"
 
 [deps]
 
-source_file="res://assets/models/ScifiRifle.glb"
-dest_files=[ "res://.import/ScifiRifle.glb-703f3a7f1051a006afa5bb4410f78464.scn" ]
+source_file="res://assets/models/gun/ScifiRifle.glb"
+dest_files=[ "res://.import/ScifiRifle.glb-2b1bea28aa71c4f6165093bba18c71f7.scn" ]
 
 [params]
 
