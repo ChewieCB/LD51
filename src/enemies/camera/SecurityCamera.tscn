@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
 [ext_resource path="res://src/enemies/camera/security_camera.gd" type="Script" id=3]
-[ext_resource path="res://src/utils/state_machine/state.gd" type="Script" id=4]
+[ext_resource path="res://src/enemies/camera/states/idle.gd" type="Script" id=4]
+[ext_resource path="res://src/enemies/camera/states/tracking.gd" type="Script" id=5]
+[ext_resource path="res://src/enemies/camera/states/alert.gd" type="Script" id=6]
 
 [sub_resource type="SphereMesh" id=3]
 
@@ -17,40 +19,74 @@ albedo_color = Color( 0, 1, 0.156863, 1 )
 
 [sub_resource type="SphereShape" id=2]
 
+[sub_resource type="Animation" id=6]
+resource_name = "rotate"
+length = 10.0
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5, 5, 7.5, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
 [node name="SecurityCamera" type="KinematicBody"]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
-collision_mask = 4
+collision_mask = 5
 script = ExtResource( 3 )
 
-[node name="BodyMesh" type="MeshInstance" parent="."]
+[node name="Pivot" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="BodyMesh" type="MeshInstance" parent="Pivot"]
 mesh = SubResource( 3 )
+skeleton = NodePath("../..")
 material/0 = SubResource( 4 )
 
-[node name="EyeMesh" type="MeshInstance" parent="."]
+[node name="EyeMesh" type="MeshInstance" parent="Pivot"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.98023e-08, 0, 0.7 )
 mesh = SubResource( 3 )
+skeleton = NodePath("../..")
 material/0 = SubResource( 5 )
+
+[node name="Viewcone" parent="Pivot" instance=ExtResource( 1 )]
+transform = Transform( 4.12198e-07, -2.02602e-07, 9.43, -9.43, -6.55409e-07, 4.12198e-07, 4.94638e-07, -17.9928, -7.79416e-07, 7.68112e-07, 5.81361e-07, 17.3 )
+collision_layer = 0
+
+[node name="RayCast" type="RayCast" parent="Pivot"]
+enabled = true
+cast_to = Vector3( 0, 0, 37.5 )
+debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_thickness = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
 
-[node name="Viewcone" parent="." instance=ExtResource( 1 )]
-transform = Transform( 4.12198e-07, -2.02602e-07, 9.43, -9.43, -6.55409e-07, 4.12198e-07, 4.94638e-07, -17.9928, -7.79416e-07, 7.68112e-07, 5.81361e-07, 17.3 )
-collision_layer = 0
-
-[node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, -1.27233e-05, 0, 1, 0, -1.27232e-05, 0, 85.2623, -2.67263e-06, 0, 17.7 )
-cast_to = Vector3( 0, 0, -4 )
-collision_mask = 4
-
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
-initial_state = NodePath("State")
+initial_state = NodePath("Idle")
 
-[node name="State" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 
-[node name="Rays" type="Spatial" parent="."]
+[node name="Tracking" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
 
-[connection signal="body_entered" from="Viewcone" to="." method="_on_Viewcone_body_entered"]
-[connection signal="body_exited" from="Viewcone" to="." method="_on_Viewcone_body_exited"]
+[node name="Alert" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "rotate"
+anims/rotate = SubResource( 6 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="body_entered" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_entered"]
+[connection signal="body_exited" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_exited"]

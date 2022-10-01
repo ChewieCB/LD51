@@ -43,10 +43,9 @@ material = SubResource( 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-autoplay = true
 
 [node name="PlayerRig" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 13.1662 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 22.1662 )
 
 [node name="Terrain" type="Spatial" parent="."]
 
@@ -108,7 +107,7 @@ depth = 74.0
 [node name="Enemies" type="Spatial" parent="."]
 
 [node name="SecurityCamera" parent="Enemies" instance=ExtResource( 6 )]
-transform = Transform( 0.172667, 0.633884, 0.753908, -0.0225576, 0.767748, -0.640355, -0.984722, 0.0935618, 0.146864, -12.1889, 2.77658, -3.70414 )
+transform = Transform( 0.707107, 0.353553, 0.612373, 0, 0.866025, -0.5, -0.707107, 0.353553, 0.612373, -12.1889, 2.77658, -3.70414 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
