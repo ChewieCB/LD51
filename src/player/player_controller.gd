@@ -2,7 +2,8 @@ extends KinematicBody
 class_name PlayerController
 
 onready var mesh = $MeshInstance
-onready var collider = $CollisionShape
+onready var collider = $BodyCollider
+onready var foot_collider = $FootCollider
 onready var tween = $Tween
 onready var audio_player = $AudioStreamPlayer3D
 
@@ -14,7 +15,7 @@ onready var rotateable = [
 	$MeshInstance
 ]
 
-onready var camera_pivot = get_node("../CameraPivot")
+onready var camera_pivot = $CameraPivot
 onready var camera = camera_pivot.camera
 
 onready var state_machine = $StateMachine

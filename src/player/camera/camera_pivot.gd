@@ -1,12 +1,12 @@
 extends Spatial
 
 export (NodePath) var camera_target
-onready var current_target = get_node(camera_target)
-onready var camera = $ClippedCamera
+#onready var current_target = get_node(camera_target)
+onready var camera = $Camera
 
 export (float, 0.1, 25.0) var look_sensitivity = 15.0
-export var min_look_angle = -35.0
-export var max_look_angle = 85.0
+export var min_look_angle = -90.0
+export var max_look_angle = 90.0
 
 var camera_rotation = Vector3.ZERO
 var camera_lerp_goal = Vector3.ZERO
@@ -17,7 +17,6 @@ var is_using_controller = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	self.rotation.y = current_target.rotation.y
 
 
 func _unhandled_input(event):
@@ -32,9 +31,9 @@ func _unhandled_input(event):
 	elif event is InputEventJoypadMotion:
 		is_using_controller = true
 
-
-func _physics_process(_delta):
-	self.global_transform.origin = current_target.global_transform.origin
+#
+#func _physics_process(_delta):
+#	self.global_transform.origin = current_target.global_transform.origin
 
 
 func _process(delta):
@@ -67,6 +66,6 @@ func _process(delta):
 	rotation.y += camera_rotation.y
 
 	rotation.x += camera_rotation.x
-	rotation.x = clamp(rotation.x, min_look_angle, max_look_angle)
+	rotation.x = clamp(rotation.x, deg2rad(min_look_angle), deg2rad(max_look_angle))
 	
 	mouse_delta = Vector2.ZERO
