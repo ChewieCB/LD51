@@ -1,22 +1,39 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
 [ext_resource path="res://src/player/states/_movement.gd" type="Script" id=3]
+[ext_resource path="res://src/player/camera/CameraPivot.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CapsuleShape" id=4]
-height = 0.5
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 0.6, 0.6, 2 )
 
 [sub_resource type="CapsuleMesh" id=2]
-mid_height = 0.5
+mid_height = 3.0
 
 [sub_resource type="SpatialMaterial" id=3]
 vertex_color_use_as_albedo = true
+
+[sub_resource type="CapsuleShape" id=4]
+height = 3.0
+
+[sub_resource type="CylinderShape" id=5]
 
 [node name="PlayerController" type="KinematicBody"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+
+[node name="CameraPivot" parent="." instance=ExtResource( 4 )]
+camera_target = NodePath("")
+look_sensitivity = 15.0
+min_look_angle = -90.0
+max_look_angle = 90.0
+
+[node name="GunMesh" type="MeshInstance" parent="CameraPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -1.1, -1 )
+mesh = SubResource( 6 )
+skeleton = NodePath("../..")
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -29,11 +46,16 @@ initial_state = NodePath("Movement")
 [node name="Movement" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+visible = false
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="BodyCollider" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+[node name="FootCollider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+shape = SubResource( 5 )

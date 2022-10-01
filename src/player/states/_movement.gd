@@ -12,9 +12,10 @@ export var move_speed = 20
 export var gravity = 0.0
 export var jump_impulse = 35
 export (float, 0.1, 20.0, 0.1) var rotation_speed_factor := 2.0
-export (int, 0, 200) var inertia = 0
+export (int, 0, 200) var inertia = 1.7
 
 var velocity := Vector3.ZERO
+var h_velocity := Vector3.ZERO
 var input_direction = Vector3.ZERO
 var move_direction = Vector3.ZERO
 
@@ -44,32 +45,30 @@ func physics_update(delta: float):
 
 
 func get_input_direction() -> Vector3:
-	var input_vector := Input.get_vector(
-		"move_left", "move_right",
-		"move_forward", "move_backward"
-	)
 	var input_direction := Vector3(
-		input_vector.x,
-		0,
-		input_vector.y
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_up") - Input.get_action_strength("move_down"),
+		Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
 	)
 	
+	print(input_direction)
 	return input_direction
 
 
 func calculate_movement_direction(input_direction, _delta) -> Vector3:
 	var forwards := Vector3.ZERO
 	var right := Vector3.ZERO
+	var up := Vector3.ZERO
 	
 	# We calculate a move direction vector relative to the camera,
 	# the basis stores the (right, up, -forwards) vectors of our camera.
 	forwards = input_direction.z * _actor.camera.global_transform.basis.z
 	right = input_direction.x * _actor.camera.global_transform.basis.x
-	move_direction = forwards + right
+	up = input_direction.y * Vector3.UP
+	move_direction = forwards + right + up
 	
 	if move_direction.length() > 1.0:
 		move_direction = move_direction.normalized()
-		move_direction.y = 0
 
 	# Rotation
 	if move_direction != Vector3.ZERO:
@@ -86,8 +85,10 @@ func calculate_movement_direction(input_direction, _delta) -> Vector3:
 	return move_direction 
 
 
-func calculate_velocity(velocity_current: Vector3, _move_direction: Vector3, delta: float):
-	var velocity_new = move_direction * move_speed
+func calculate_velocity(velocity_current: Vector3, move_direction: Vector3, delta: float):
+	h_velocity = h_velocity.linear_interpolate(move_direction * move_speed, inertia * delta)
+	var velocity_new = h_velocity
+	
 	if velocity_new.length() > max_speed:
 		velocity_new = velocity_new.normalized() * max_speed
 #	velocity_new.y = velocity_current.y + gravity * delta
