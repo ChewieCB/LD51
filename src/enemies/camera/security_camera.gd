@@ -97,6 +97,8 @@ func destroy_camera():
 
 
 func _on_Viewcone_body_entered(body):
+	if state_machine.state.name == "Destroyed":
+		return
 	if body is PlayerController:
 #		pivot.look_at(body.global_transform.origin, self.global_transform.basis.y)
 #		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
@@ -107,6 +109,8 @@ func _on_Viewcone_body_entered(body):
 
 
 func _on_Viewcone_body_exited(body):
+	if state_machine.state.name == "Destroyed":
+		return
 	if body is PlayerController:
 		target = null
 		set_has_seen_player(false)
