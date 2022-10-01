@@ -1,6 +1,6 @@
 # Generic state machine. Initializes states and delegates engine callbacks
 # (_physics_process, _unhandled_input) to the active state.
-class_name StateMachine
+class_name CameraStateMachine
 extends Node
 
 # Emitted when transitioning to a new state.
@@ -14,7 +14,7 @@ onready var _actor = get_owner()
 func _ready() -> void:
 	yield(owner, "ready")
 	# The state machine assigns itself to the State objects' state_machine property.
-	for child in Utils.get_all_children(self, 1):
+	for child in Utils.get_all_children(self, 0):
 		child.state_machine = self
 		child._actor = _actor
 	state.enter()
