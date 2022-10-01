@@ -140,13 +140,13 @@ environment = SubResource( 3 )
 [node name="Cameras" type="Spatial" parent="."]
 
 [node name="SecurityCamera" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
-transform = Transform( -0.724446, -0.249999, 0.642401, 0.12941, 0.866025, 0.482963, -0.677076, 0.433013, -0.595036, 21, 12, -55.8 )
+transform = Transform( -0.724446, -0.249999, 0.642401, 0.187929, 0.82499, 0.532986, -0.663221, 0.506844, -0.550679, 21, 11.9216, -55.8034 )
 
 [node name="SecurityCamera2" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
-transform = Transform( -0.677076, 0.433013, -0.595036, 0.12941, 0.866025, 0.482963, 0.724446, 0.249999, -0.642401, -25.8, 12, -57.6 )
+transform = Transform( -0.677076, 0.433013, -0.595036, 0.0657779, 0.840941, 0.537114, 0.732968, 0.324527, -0.597863, -25.8, 12.0784, -57.5966 )
 
 [node name="SecurityCamera3" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
-transform = Transform( -0.984335, 0.171011, -0.0428966, 0.12941, 0.866025, 0.482963, 0.119742, 0.469846, -0.874589, -3, 12, -85.8 )
+transform = Transform( -0.984335, 0.171011, -0.0428966, 0.118481, 0.82178, 0.557351, 0.130565, 0.543537, -0.829168, -3, 12, -85.8 )
 
 [node name="Turrets" type="Spatial" parent="."]
 

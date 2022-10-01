@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
@@ -11,6 +11,35 @@
 
 [sub_resource type="CubeMesh" id=6]
 size = Vector3( 0.3, 0.3, 1 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "fire"
+length = 0.6
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("GunMesh:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.4, -0.7, -0.6 ), Vector3( 0.4, -0.5, -0.6 ), Vector3( 0.4, -0.7, -0.6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GunMesh:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 20, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
 
 [sub_resource type="CapsuleMesh" id=2]
 radius = 0.5
@@ -99,6 +128,7 @@ initial_state = NodePath("Ready")
 script = ExtResource( 8 )
 
 [node name="GunAnimationPlayer" type="AnimationPlayer" parent="Camera/Hand"]
+anims/fire = SubResource( 7 )
 
 [node name="Tween" type="Tween" parent="."]
 

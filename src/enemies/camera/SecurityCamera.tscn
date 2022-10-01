@@ -21,7 +21,6 @@ vertex_color_use_as_albedo = true
 albedo_color = Color( 0.141176, 0.14902, 0.192157, 1 )
 
 [sub_resource type="SphereShape" id=2]
-radius = 0.5
 
 [sub_resource type="Animation" id=10]
 resource_name = "death"
@@ -35,7 +34,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 80, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( -80, 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Pivot:scale")
@@ -135,16 +134,14 @@ script = ExtResource( 6 )
 [node name="Destroyed" type="Node" parent="StateMachine"]
 script = ExtResource( 13 )
 
-[node name="PulseTimer" type="Timer" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "rotate"
 anims/death = SubResource( 10 )
 anims/rotate = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="InteractionArea" type="Area" parent="."]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
 shape = SubResource( 7 )

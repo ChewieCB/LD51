@@ -17,6 +17,7 @@ onready var rotateable = [
 
 onready var camera = $Camera
 onready var gun_camera = $CanvasLayer/ViewportContainer/Viewport/GunCamera
+onready var gun_anim_player = $Camera/Hand/GunAnimationPlayer
 onready var muzzle = $Camera/Hand/GunMesh/Muzzle
 onready var aim_cast = $Camera/Hand/AimCast
 

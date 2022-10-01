@@ -31,6 +31,10 @@ var debug_trajectory_meshes = []
 func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
+#	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
+	anim_player.play("rotate")
+	anim_player.seek(rand_range(0, 5))
+	
 
 
 func _physics_process(_delta):
