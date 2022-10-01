@@ -19,6 +19,7 @@ export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
 var has_seen_player = false setget set_has_seen_player
+var can_interact = false
 var target: PlayerController = null
 
 var debug_trajectory_meshes = []
@@ -26,6 +27,7 @@ var debug_trajectory_meshes = []
 
 func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
+	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
 
 
 func _physics_process(_delta):
@@ -34,12 +36,20 @@ func _physics_process(_delta):
 		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
 
 
+func _input(event):
+	if not can_interact:
+		return
+	if event.is_action_pressed("interact"):
+		print("interacted with " + self.name)
+		state_machine.transition_to("Destroyed")
+
+
 func ping_effect():
 	match state_machine.state.name:
 		"Idle":
 			# Flash red to indicate the ping has hit
 			state_machine.transition_to("Alert")
-			yield(get_tree().create_timer(0.5), "timeout")
+			yield(get_tree().create_timer(0.2), "timeout")
 			state_machine.transition_to("Idle")
 		"Tracking":
 			state_machine.transition_to("Alert")
@@ -80,6 +90,10 @@ func clear_debug_trajectory():
 	for mesh in debug_trajectory_meshes:
 		mesh.queue_free()
 	debug_trajectory_meshes = []
+
+
+func destroy_camera():
+	self.queue_free()
 
 
 func _on_Viewcone_body_entered(body):
@@ -123,3 +137,14 @@ func set_has_seen_player(value):
 			yield(tween, "tween_completed")
 			anim_player.play("rotate")
 
+
+
+func _on_InteractionArea_body_entered(body):
+	if body is PlayerController:
+		can_interact = true
+		print("can interact with " + self.name)
+
+
+func _on_InteractionArea_body_exited(body):
+	if body is PlayerController:
+		can_interact = false

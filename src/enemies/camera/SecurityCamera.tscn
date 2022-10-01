@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/enemies/camera/states/state_machine.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/enemies/camera/materials/Idle.material" type="Material" id=10]
 [ext_resource path="res://src/enemies/camera/materials/AlertTransparent.material" type="Material" id=11]
 [ext_resource path="res://src/enemies/camera/materials/Tracking.material" type="Material" id=12]
+[ext_resource path="res://src/enemies/camera/states/destroyed.gd" type="Script" id=13]
 
 [sub_resource type="SphereMesh" id=3]
 
@@ -19,11 +20,34 @@
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.141176, 0.14902, 0.192157, 1 )
 
-[sub_resource type="SpatialMaterial" id=7]
-flags_transparent = true
-vertex_color_use_as_albedo = true
-
 [sub_resource type="SphereShape" id=2]
+
+[sub_resource type="Animation" id=10]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 80, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1 ), Vector3( 0, 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "rotate"
@@ -43,6 +67,18 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="SphereShape" id=7]
+radius = 8.0
+
+[sub_resource type="SphereMesh" id=8]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.329412, 0.760784, 0.996078, 0.411765 )
+
 [node name="SecurityCamera" type="KinematicBody"]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
 collision_mask = 5
@@ -55,7 +91,6 @@ alert_mat = ExtResource( 8 )
 alert_transparent_mat = ExtResource( 11 )
 
 [node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="BodyMesh" type="MeshInstance" parent="Pivot"]
 mesh = SubResource( 3 )
@@ -66,7 +101,7 @@ material/0 = SubResource( 4 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.98023e-08, 0, 0.7 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 7 )
+material/0 = ExtResource( 10 )
 
 [node name="Viewcone" parent="Pivot" instance=ExtResource( 1 )]
 transform = Transform( 4.12198e-07, -2.02602e-07, 9.43, -9.43, -6.55409e-07, 4.12198e-07, 4.94638e-07, -17.9928, -7.79416e-07, 7.68112e-07, 5.81361e-07, 17.3 )
@@ -94,13 +129,28 @@ script = ExtResource( 5 )
 [node name="Alert" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
 
+[node name="Destroyed" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
+
 [node name="PulseTimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rotate"
+anims/death = SubResource( 10 )
 anims/rotate = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="InteractionArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="InteractionArea"]
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
+
 [connection signal="body_entered" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_entered"]
 [connection signal="body_exited" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_exited"]
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_InteractionArea_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_InteractionArea_body_exited"]
