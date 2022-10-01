@@ -17,6 +17,7 @@ onready var rotateable = [
 
 onready var camera = $Camera
 onready var gun_camera = $CanvasLayer/ViewportContainer/Viewport/GunCamera
+onready var aim_cast = $Camera/Hand/AimCast
 
 onready var state_machine = $StateMachine
 onready var movement_state = $StateMachine/Movement

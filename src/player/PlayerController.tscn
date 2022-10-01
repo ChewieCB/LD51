@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/ui/debug/DebugMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/crosshairs/crosshair.png" type="Texture" id=6]
 [ext_resource path="res://src/player/weapon_sway.gd" type="Script" id=7]
+[ext_resource path="res://src/player/states/gun_states/ready.gd" type="Script" id=8]
 
 [sub_resource type="CubeMesh" id=6]
 size = Vector3( 0.6, 0.6, 2 )
@@ -79,6 +80,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -1.1, -1 )
 layers = 2
 mesh = SubResource( 6 )
 skeleton = NodePath("../../..")
+
+[node name="AimCast" type="RayCast" parent="Camera/Hand"]
+enabled = true
+cast_to = Vector3( 0, -1, -1000 )
+
+[node name="WeaponStateMachine" type="Node" parent="Camera/Hand"]
+script = ExtResource( 2 )
+
+[node name="Ready" type="Node" parent="Camera/Hand/WeaponStateMachine"]
+script = ExtResource( 8 )
+max_speed = null
+move_speed = null
+gravity = null
+jump_impulse = null
+rotation_speed_factor = null
+inertia = null
 
 [node name="Tween" type="Tween" parent="."]
 
