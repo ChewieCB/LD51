@@ -4,7 +4,7 @@ extends State
 func enter(_msg := {}) -> void:
 	_actor.eye_mesh.set_surface_material(1, _actor.alert_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.alert_transparent_mat)
-	_actor.anim_player.play("find")
+#	_actor.anim_player.play("find")
 	
 	if _actor.has_seen_player:
 		for turret_path in _actor.linked_turrets:
@@ -32,4 +32,4 @@ func exit() -> void:
 		var turret = _actor.get_node(turret_path)
 		if turret.is_active:
 			turret.set_is_active(false)
-	_actor.anim_player.play("lose")
+#	_actor.anim_player.play("lose")

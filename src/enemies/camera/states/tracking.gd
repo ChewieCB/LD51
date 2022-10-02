@@ -4,7 +4,7 @@ extends State
 func enter(_msg := {}) -> void:
 	_actor.eye_mesh.set_surface_material(1, _actor.tracking_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.tracking_transparent_mat)
-	_actor.anim_player.play("find")
+#	_actor.anim_player.play("find")
 
 
 func update(delta: float) -> void:
@@ -20,4 +20,5 @@ func physics_update(_delta: float) -> void:
 
 
 func exit() -> void:
-	_actor.anim_player.play("lose")
+	pass
+#	_actor.anim_player.play("lose")

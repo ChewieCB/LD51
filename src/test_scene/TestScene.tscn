@@ -137,8 +137,12 @@ environment = SubResource( 3 )
 
 [node name="Cameras" type="Spatial" parent="."]
 
-[node name="SecurityCamera" parent="Cameras" instance=ExtResource( 10 )]
+[node name="SecurityCamera" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 12, -86.7 )
+linked_turrets = [ NodePath("../../Turrets/Turret"), NodePath("../../Turrets/Turret2") ]
+
+[node name="EyePivot" parent="Cameras/SecurityCamera/Mesh" index="1"]
+transform = Transform( 1, 4.37114e-08, 1.17124e-08, -4.37114e-08, 0.866025, 0.5, 1.17124e-08, -0.5, 0.866025, -5.96042e-08, 0, 0 )
 
 [node name="Turrets" type="Spatial" parent="."]
 
@@ -234,3 +238,5 @@ quality = 3
 environment_mode = 1
 environment_min_light = Color( 0.164706, 0.196078, 0.129412, 1 )
 capture_quality = 2
+
+[editable path="Cameras/SecurityCamera"]

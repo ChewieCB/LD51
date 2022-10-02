@@ -12,8 +12,6 @@ onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
 onready var state_label = $StateLabel
 
-onready var initial_rotation = self.rotation_degrees
-
 export (Material) var idle_mat
 export (Material) var idle_transparent_mat
 export (Material) var tracking_mat
@@ -49,6 +47,8 @@ onready var rotation_speed: float = deg2rad(rotation_speed_deg)
 var ttc: float
 var current_target: Vector3
 var current_aim: Vector3
+
+onready var initial_rotation = pivot.rotation_degrees
 
 
 func _ready():
@@ -167,10 +167,6 @@ func _on_Viewcone_body_entered(body):
 	if state_machine.state.name == "Destroyed":
 		return
 	if body is PlayerController:
-#		pivot.look_at(body.global_transform.origin, self.global_transform.basis.y)
-#		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
-#		var local = ray.to_local(target.global_transform.origin)
-#		ray.cast_to = local
 		target = body
 		set_has_seen_player(true)
 		audio_player.stream = found_sfx
