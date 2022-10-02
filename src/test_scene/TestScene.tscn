@@ -8,13 +8,19 @@
 [ext_resource path="res://assets/models/environment/modular_level_tiles.tres" type="MeshLibrary" id=6]
 [ext_resource path="res://assets/models/environment/door/Door - Temp.material" type="Material" id=7]
 [ext_resource path="res://assets/models/environment/door/Door Frame - Temp.material" type="Material" id=8]
+[ext_resource path="res://assets/HDRI/satara_night_no_lamps_2k.hdr" type="Texture" id=9]
 [ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=10]
 
-[sub_resource type="ProceduralSky" id=2]
+[sub_resource type="PanoramaSky" id=7]
+radiance_size = 4
+panorama = ExtResource( 9 )
 
 [sub_resource type="Environment" id=3]
 background_mode = 2
-background_sky = SubResource( 2 )
+background_sky = SubResource( 7 )
+ambient_light_energy = 4.1
+ambient_light_sky_contribution = 0.0
+adjustment_enabled = true
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Door & Door Frame_Plane002"
@@ -105,11 +111,6 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 4, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-
-[sub_resource type="Environment" id=7]
-ambient_light_color = Color( 0.0823529, 0.0980392, 0.054902, 0.690196 )
-ambient_light_energy = 0.66
-glow_enabled = true
 
 [node name="TestScene" type="Spatial"]
 script = ExtResource( 1 )
@@ -230,9 +231,6 @@ light_indirect_energy = 5.0
 shadow_enabled = true
 omni_range = 30.0
 omni_attenuation = 1.1487
-
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
-environment = SubResource( 7 )
 
 [node name="BakedLightmap" type="BakedLightmap" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -36 )
