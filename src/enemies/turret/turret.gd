@@ -183,23 +183,15 @@ func set_has_seen_player(value):
 	match has_seen_player:
 		true:
 			match state_machine.state.name:
-				"Idle":
+				"Idle", "Tracking":
 					state_machine.transition_to("Alert")
+
 		false:
 			match state_machine.state.name:
-				"Alert":
-					if not tween.is_inside_tree():
-						return
+				"Tracking":
 					state_machine.transition_to("Idle")
-					tween.interpolate_property(
-						pivot, "rotation_degrees",
-						pivot.rotation_degrees, Vector3.ZERO,
-						2.0,
-						Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-					)
-					tween.start()
-					yield(tween, "tween_completed")
-					anim_state_machine.travel("rotate")
+				"Alert":
+					state_machine.transition_to("Tracking")
 				"Shooting":
 					state_machine.transition_to("Alert")
 

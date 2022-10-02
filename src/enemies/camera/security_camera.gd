@@ -20,6 +20,8 @@ export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
 export (Array, AudioStream) var death_sfx
+export (AudioStream) var found_sfx
+export (AudioStream) var lost_sfx
 
 export var max_health = 100
 export var health = 100 setget set_health
@@ -125,6 +127,8 @@ func _on_Viewcone_body_entered(body):
 #		ray.cast_to = local
 		target = body
 		set_has_seen_player(true)
+		audio_player.stream = found_sfx
+		audio_player.play()
 
 
 func _on_Viewcone_body_exited(body):
@@ -133,6 +137,8 @@ func _on_Viewcone_body_exited(body):
 	if body is PlayerController:
 		target = null
 		set_has_seen_player(false)
+		audio_player.stream = lost_sfx
+		audio_player.play()
 
 
 func set_has_seen_player(value):
@@ -141,11 +147,6 @@ func set_has_seen_player(value):
 		true:
 			state_machine.transition_to("Tracking")
 			anim_player.stop()
-#			if ray.is_colliding():
-#				if ray.get_collider() is PlayerController:
-#					target = ray.get_collider()
-#				else:
-#					has_seen_player = false
 		false:
 			if not tween.is_inside_tree():
 				return

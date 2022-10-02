@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Camera_Player_Detected.mp3-997cd9c675cb74ae6083d60ed3b97827.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/enemies/camera/Camera_Player_Detected.mp3"
+dest_files=[ "res://.import/Camera_Player_Detected.mp3-997cd9c675cb74ae6083d60ed3b97827.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
