@@ -119,7 +119,8 @@ func clear_debug_trajectory():
 
 
 func destroy():
-	self.queue_free()
+	pass
+#	self.queue_free()
 
 
 func _on_Viewcone_body_entered(body):

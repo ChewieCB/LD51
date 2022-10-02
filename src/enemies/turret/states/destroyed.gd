@@ -4,7 +4,7 @@ signal destroyed
 
 
 func enter(_msg := {}) -> void:
-	_actor.anim_player.stop()
+	_actor.anim_state_machine.travel("destroy")
 #	_actor.anim_player.play("death")
 #	yield(_actor.anim_player, "animation_finished")
 	emit_signal("destroyed")
