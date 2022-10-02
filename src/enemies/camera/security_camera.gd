@@ -60,9 +60,11 @@ func ping_effect():
 	match state_machine.state.name:
 		"Idle":
 			# Flash red to indicate the ping has hit
-			state_machine.transition_to("Alert")
-			yield(get_tree().create_timer(0.2), "timeout")
-			state_machine.transition_to("Idle")
+			eye_mesh.set_surface_material(0, alert_mat)
+			viewcone_mesh.set_surface_material(0, alert_transparent_mat)
+			yield(get_tree().create_timer(1), "timeout")
+			eye_mesh.set_surface_material(0, idle_mat)
+			viewcone_mesh.set_surface_material(0, idle_transparent_mat)
 		"Tracking":
 			state_machine.transition_to("Alert")
 

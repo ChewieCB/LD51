@@ -28,6 +28,7 @@ export var max_health = 200
 export var health = 200 setget set_health
 
 var is_active = false setget set_is_active
+var can_ping  = false setget set_can_ping
 var has_seen_player = false setget set_has_seen_player
 var can_interact = false
 var target: PlayerController = null
@@ -61,7 +62,7 @@ func _input(event):
 
 
 func ping_effect():
-	if is_active:
+	if is_active and can_ping:
 		match state_machine.state.name:
 			"Idle":
 				# Flash red to indicate the ping has hit
@@ -182,6 +183,10 @@ func set_is_active(value):
 			activate()
 		false:
 			deactivate()
+
+
+func set_can_ping(value):
+	can_ping = value
 
 
 func _on_InteractionArea_body_entered(body):
