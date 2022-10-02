@@ -44,11 +44,11 @@ func _ready():
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 
 
-func _process(delta):
-	if has_seen_player and target:
-		# Separate rotation axis to animate the base and the gun components separately
-		_rotate_base(delta)
-		_rotate_guns(delta)
+#func _process(delta):
+#	if has_seen_player and target:
+#		# Separate rotation axis to animate the base and the gun components separately
+#		_rotate_base(delta)
+#		_rotate_guns(delta)
 
 
 func _rotate_base(delta):

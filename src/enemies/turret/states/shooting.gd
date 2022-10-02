@@ -8,8 +8,10 @@ func enter(_msg := {}) -> void:
 	yield(get_tree().create_timer(rand_range(0, 0.8)), "timeout")
 	_actor.anim_state_machine.travel("burst_fire")
 
-func update(_delta: float) -> void:
-	pass
+func update(delta: float) -> void:
+	if _actor.target:
+		_actor._rotate_base(delta)
+		_actor._rotate_guns(delta)
 
 
 func physics_update(_delta: float) -> void:
