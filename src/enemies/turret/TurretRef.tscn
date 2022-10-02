@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/enemies/camera/materials/IdleTransparent.material" type="Material" id=1]
+[ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.5
+height = 1.0
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+
+[sub_resource type="SphereMesh" id=5]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 0.25, 0.4, 2 )
+
+[sub_resource type="PrismMesh" id=4]
+size = Vector3( 1, 0.5, 1 )
+
+[node name="Pivot" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
+
+[node name="Base" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 1 )
+
+[node name="Body" type="MeshInstance" parent="."]
+transform = Transform( 0.760207, 0, 0.649681, 0, 1, 0, -0.649681, 0, 0.760207, 0, 2, 0 )
+mesh = SubResource( 2 )
+
+[node name="Rotate" type="Spatial" parent="."]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2.5, 0 )
+
+[node name="AimJoint" type="MeshInstance" parent="Rotate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0999999, 0 )
+mesh = SubResource( 5 )
+
+[node name="EyeMesh" type="MeshInstance" parent="Rotate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 1 )
+
+[node name="Gun1" type="MeshInstance" parent="Rotate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.4, 0.4 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+
+[node name="AimCast" type="RayCast" parent="Rotate/Gun1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 7
+debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_thickness = 5
+
+[node name="Gun2" type="MeshInstance" parent="Rotate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.4, 0.4 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+
+[node name="AimCast" type="RayCast" parent="Rotate/Gun2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0, -1 )
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 7
+debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_thickness = 5
+
+[node name="Gun3" type="MeshInstance" parent="Rotate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.4 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+
+[node name="AimCast" type="RayCast" parent="Rotate/Gun3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, 0, -1 )
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 7
+debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_thickness = 5
+
+[node name="HeadMount" type="MeshInstance" parent="Rotate"]
+transform = Transform( 1, 0, 1.77636e-15, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.66454e-15, 0.4, 2.62268e-08 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+
+[node name="Viewcone" parent="Rotate" instance=ExtResource( 2 )]
+transform = Transform( 5, 0, 0, 0, -8.74228e-07, -5, 0, 20, -2.18557e-07, 0, 0.7, -15.9 )
+visible = false

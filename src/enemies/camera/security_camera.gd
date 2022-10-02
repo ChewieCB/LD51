@@ -22,6 +22,8 @@ export (Material) var alert_transparent_mat
 export var max_health = 100
 export var health = 100 setget set_health
 
+export (Array, NodePath) var linked_turrets = []
+
 var has_seen_player = false setget set_has_seen_player
 var can_interact = false
 var target: PlayerController = null

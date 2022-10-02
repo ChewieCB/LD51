@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Turret_Activate.wav-8f170c0390ebb19c9c1f4c19cf2bb02d.sample"
+
+[deps]
+
+source_file="res://assets/audio/enemies/turret/Turret_Activate.wav"
+dest_files=[ "res://.import/Turret_Activate.wav-8f170c0390ebb19c9c1f4c19cf2bb02d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
