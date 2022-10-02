@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/enemies/camera/states/state_machine.gd" type="Script" id=2]
@@ -13,13 +13,20 @@
 [ext_resource path="res://src/enemies/camera/materials/AlertTransparent.material" type="Material" id=11]
 [ext_resource path="res://src/enemies/camera/materials/Tracking.material" type="Material" id=12]
 [ext_resource path="res://src/enemies/camera/states/destroyed.gd" type="Script" id=13]
-[ext_resource path="res://assets/audio/enemies/destroy_1.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/audio/enemies/camera/Camera_Movement_Test_2.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/audio/enemies/camera/Camera_Movement_Test_1.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/audio/enemies/camera/Camera_Destroyed_2.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/audio/enemies/camera/Camera_Destroyed_1.wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/audio/enemies/camera/Camera_Player_Detected.mp3" type="AudioStream" id=18]
+[ext_resource path="res://assets/audio/enemies/camera/Camera_Player_Lost.mp3" type="AudioStream" id=19]
 
-[sub_resource type="SphereMesh" id=3]
+[sub_resource type="SphereMesh" id=12]
 
 [sub_resource type="SpatialMaterial" id=4]
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.141176, 0.14902, 0.192157, 1 )
+
+[sub_resource type="SphereMesh" id=3]
 
 [sub_resource type="SphereShape" id=2]
 
@@ -52,7 +59,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "rotate"
-length = 10.0
+length = 8.0
 loop = true
 step = 0.5
 tracks/0/type = "value"
@@ -62,10 +69,74 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2.5, 5, 7.5, 10 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 15 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 15 )
+} ],
+"times": PoolRealArray( 0, 2, 4, 6 )
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("AudioStreamPlayer3D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer3D:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2, 4, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 15 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="SphereShape" id=7]
@@ -90,12 +161,15 @@ tracking_mat = ExtResource( 12 )
 tracking_transparent_mat = ExtResource( 9 )
 alert_mat = ExtResource( 8 )
 alert_transparent_mat = ExtResource( 11 )
+death_sfx = [ ExtResource( 17 ), ExtResource( 16 ) ]
+found_sfx = ExtResource( 19 )
+lost_sfx = ExtResource( 18 )
 
 [node name="Pivot" type="Spatial" parent="."]
 
 [node name="BodyMesh" type="MeshInstance" parent="Pivot"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.74076e-06, 0, -0.100001 )
-mesh = SubResource( 3 )
+mesh = SubResource( 12 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 4 )
 
@@ -106,7 +180,7 @@ skeleton = NodePath("../..")
 material/0 = ExtResource( 10 )
 
 [node name="Viewcone" parent="Pivot" instance=ExtResource( 1 )]
-transform = Transform( -4.37112e-07, -8.74228e-07, -10, -10, -8.74228e-07, 4.37112e-07, -4.37114e-07, 20, -4.37114e-07, 2.29711e-06, 5.81361e-07, -17.5 )
+transform = Transform( -6.55668e-07, -1.09278e-06, -15, -15, -1.09278e-06, 6.55668e-07, -6.55671e-07, 25, -6.55671e-07, 3.35408e-06, 5.81361e-07, -24.5 )
 collision_layer = 0
 
 [node name="RayCast" type="RayCast" parent="Pivot"]
@@ -152,9 +226,10 @@ mesh = SubResource( 8 )
 material/0 = SubResource( 9 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 14 )
-attenuation_model = 3
+stream = ExtResource( 19 )
+unit_db = 4.0
 unit_size = 3.0
+max_db = 2.0
 
 [connection signal="body_entered" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_entered"]
 [connection signal="body_exited" from="Pivot/Viewcone" to="." method="_on_Viewcone_body_exited"]

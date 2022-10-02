@@ -6,6 +6,7 @@ onready var collider = $BodyCollider
 onready var foot_collider = $FootCollider
 onready var tween = $Tween
 onready var audio_player = $AudioStreamPlayer3D
+onready var gun_audio_player = $Camera/Hand/GunAudioPlayer
 
 onready var hue = 0
 
@@ -18,7 +19,6 @@ onready var rotateable = [
 onready var camera = $Camera
 onready var gun_camera = $CanvasLayer/ViewportContainer/Viewport/GunCamera
 onready var gun_anim_player = $Camera/Hand/GunAnimationPlayer
-onready var muzzle = $Camera/Hand/GunMesh/Muzzle
 onready var aim_cast = $Camera/Hand/AimCast
 
 onready var state_machine = $StateMachine

@@ -19,8 +19,14 @@ export (Material) var tracking_transparent_mat
 export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
+export (Array, AudioStream) var death_sfx
+export (AudioStream) var found_sfx
+export (AudioStream) var lost_sfx
+
 export var max_health = 100
 export var health = 100 setget set_health
+
+export (Array, NodePath) var linked_turrets = []
 
 var has_seen_player = false setget set_has_seen_player
 var can_interact = false
@@ -56,13 +62,13 @@ func ping_effect():
 	match state_machine.state.name:
 		"Idle":
 			# Flash red to indicate the ping has hit
-			state_machine.transition_to("Alert")
-			yield(get_tree().create_timer(0.2), "timeout")
-			state_machine.transition_to("Idle")
+			eye_mesh.set_surface_material(0, alert_mat)
+			viewcone_mesh.set_surface_material(0, alert_transparent_mat)
+			yield(get_tree().create_timer(1), "timeout")
+			eye_mesh.set_surface_material(0, idle_mat)
+			viewcone_mesh.set_surface_material(0, idle_transparent_mat)
 		"Tracking":
 			state_machine.transition_to("Alert")
-	
-			
 
 
 func generate_debug_trajectory(trajectory_points, size):
@@ -104,6 +110,13 @@ func destroy_camera():
 	self.queue_free()
 
 
+func play_random_death_sfx():
+	if death_sfx:
+		var idx = int(rand_range(0, len(death_sfx)))
+		audio_player.stream = death_sfx[idx]
+		audio_player.play()
+
+
 func _on_Viewcone_body_entered(body):
 	if state_machine.state.name == "Destroyed":
 		return
@@ -114,6 +127,8 @@ func _on_Viewcone_body_entered(body):
 #		ray.cast_to = local
 		target = body
 		set_has_seen_player(true)
+		audio_player.stream = found_sfx
+		audio_player.play()
 
 
 func _on_Viewcone_body_exited(body):
@@ -122,6 +137,8 @@ func _on_Viewcone_body_exited(body):
 	if body is PlayerController:
 		target = null
 		set_has_seen_player(false)
+		audio_player.stream = lost_sfx
+		audio_player.play()
 
 
 func set_has_seen_player(value):
@@ -130,11 +147,6 @@ func set_has_seen_player(value):
 		true:
 			state_machine.transition_to("Tracking")
 			anim_player.stop()
-#			if ray.is_colliding():
-#				if ray.get_collider() is PlayerController:
-#					target = ray.get_collider()
-#				else:
-#					has_seen_player = false
 		false:
 			if not tween.is_inside_tree():
 				return
