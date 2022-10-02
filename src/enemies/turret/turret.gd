@@ -1,13 +1,12 @@
 extends KinematicBody
 
 onready var state_machine = $StateMachine
-onready var pivot = $Pivot
-onready var eye_mesh = $Pivot/EyeMesh
-onready var viewcone = $Pivot/Viewcone
-onready var viewcone_mesh = $Pivot/Viewcone/Cone
-onready var ray = $Pivot/RayCast
+onready var pivot = $Pivot/Rotate
+onready var eye_mesh = $Pivot/Rotate/EyeMesh
+onready var viewcone = $Pivot/Rotate/Viewcone
+onready var viewcone_mesh = $Pivot/Rotate/Viewcone/Cone
+onready var rays = [$Pivot/Rotate/Gun1/AimCast, $Pivot/Rotate/Gun2/AimCast,$Pivot/Rotate/Gun3/AimCast]
 onready var anim_player = $AnimationPlayer
-onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
 
 onready var initial_rotation = self.rotation_degrees
@@ -19,11 +18,10 @@ export (Material) var tracking_transparent_mat
 export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
-export var max_health = 100
-export var health = 100 setget set_health
+export var max_health = 200
+export var health = 200 setget set_health
 
-export (Array, NodePath) var linked_turrets = []
-
+var is_active = false setget set_is_active
 var has_seen_player = false setget set_has_seen_player
 var can_interact = false
 var target: PlayerController = null
@@ -33,11 +31,28 @@ var debug_trajectory_meshes = []
 
 func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
-	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
+#	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
 	anim_player.play("rotate")
 	anim_player.seek(rand_range(0, 5))
-	
+
+
+func activate():
+	anim_player.play("activate")
+	yield(anim_player, "animation_finished")
+	tween.interpolate_property(
+				pivot, "rotation_degrees",
+				pivot.rotation_degrees, Vector3.ZERO,
+				2.0,
+				Tween.TRANS_QUAD, Tween.EASE_IN_OUT
+			)
+			tween.start()
+			yield(tween, "tween_completed")
+
+
+func deactivate():
+	anim_player.play_backwards("activate")
+	yield(anim_player, "animation_finished")
 
 
 func _physics_process(_delta):
@@ -102,7 +117,7 @@ func clear_debug_trajectory():
 	debug_trajectory_meshes = []
 
 
-func destroy_camera():
+func destroy():
 	self.queue_free()
 
 
@@ -156,6 +171,15 @@ func set_health(value):
 	health = clamp(value, 0, max_health)
 	if health == 0:
 		state_machine.transition_to("Destroyed")
+
+
+func set_is_active(value):
+	is_active = value
+	match is_active:
+		true:
+			activate()
+		false:
+			deactivate()
 
 
 func _on_InteractionArea_body_entered(body):
