@@ -27,6 +27,8 @@ export (Material) var alert_transparent_mat
 export var max_health = 200
 export var health = 200 setget set_health
 
+var rotation_speed = deg2rad(90.0) # Since all values are in radians, this needs to be in radians too
+
 var is_active = false setget set_is_active
 var can_ping  = false setget set_can_ping
 var has_seen_player = false setget set_has_seen_player
@@ -42,6 +44,40 @@ func _ready():
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
 #	anim_player.seek(rand_range(0, 5))
+
+
+func _process(delta):
+	if has_seen_player and target:
+		# Separate rotation axis to animate the base and the gun components separately
+		_rotate_base(delta)
+		_rotate_guns(delta)
+
+
+func _rotate_base(delta):
+	var y_target = _get_local_y()
+	var final_y = sign(y_target) * min(rotation_speed * delta, abs(y_target))
+	base.rotate_y(final_y)
+
+
+func _rotate_guns(delta):
+	var x_target = _get_global_x()
+	var x_diff = x_target - eye_mesh.transform.basis.get_euler().x
+	var final_x = sign(x_diff) * min(rotation_speed * delta, abs(x_diff))
+	eye_mesh.rotate_x(final_x)
+	eye_mesh.rotation_degrees.x = clamp(
+		eye_mesh.rotation_degrees.x,
+		-90, 90
+	)
+
+func _get_global_x():
+	var local_target = target.global_transform.origin - eye_mesh.global_transform.origin
+	return (local_target * Vector3(1, 0, 1)).angle_to(local_target) * sign(local_target.y)
+
+
+func _get_local_y():
+	var local_target = base.to_local(target.global_transform.origin)
+	var y_angle = Vector3.FORWARD.angle_to(local_target + Vector3(1, 0, 1))
+	return y_angle * -sign(local_target.x)
 
 
 func activate():
