@@ -1,7 +1,7 @@
 extends KinematicBody
 
 onready var state_machine = $StateMachine
-onready var base = $Mesh/CameraBase
+onready var base = $CameraBase
 onready var pivot = $Mesh/EyePivot
 onready var eye_mesh = $Mesh/EyePivot/CameraEye
 onready var viewcone = $Mesh/EyePivot/CameraEye/Viewcone

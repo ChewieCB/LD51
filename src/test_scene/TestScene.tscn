@@ -141,8 +141,11 @@ environment = SubResource( 3 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 12, -86.7 )
 linked_turrets = [ NodePath("../../Turrets/Turret"), NodePath("../../Turrets/Turret2") ]
 
-[node name="EyePivot" parent="Cameras/SecurityCamera/Mesh" index="1"]
-transform = Transform( 1, 4.37114e-08, 1.17124e-08, -4.37114e-08, 0.866025, 0.5, 1.17124e-08, -0.5, 0.866025, -5.96042e-08, 0, 0 )
+[node name="Mesh" parent="Cameras/SecurityCamera" index="2"]
+transform = Transform( 1, 4.37114e-08, 1.17124e-08, -4.37114e-08, 0.866025, 0.5, 1.17124e-08, -0.5, 0.866025, 0, 0, 0 )
+
+[node name="EyePivot" parent="Cameras/SecurityCamera/Mesh" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96042e-08, 0, 0 )
 
 [node name="Turrets" type="Spatial" parent="."]
 
