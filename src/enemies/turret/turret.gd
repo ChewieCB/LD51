@@ -1,4 +1,4 @@
-extends KinematicBody
+extends Spatial
 
 onready var state_machine = $StateMachine
 onready var pivot = $TurretMesh/TurretBase/TurretHinge/TurretGuns
@@ -50,7 +50,7 @@ func activate():
 
 func deactivate():
 	if not state_machine.state.name == "Destroyed":
-		anim_state_machine.travel("inactive")
+		state_machine.transition_to("Inactive")
 
 
 func _input(event):
