@@ -242,7 +242,7 @@ environment_min_light = Color( 0.164706, 0.196078, 0.129412, 1 )
 capture_quality = 2
 
 [node name="Turret" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.89031, 0.291074, -3.37994 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.16153, 0.247054, 0.627263 )
 
 [node name="Turret2" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.72762, 0.291074, -3.37994 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.28633, 0.247054, 0.627263 )
