@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/destroy_1.wav-53ca23f91cbf7694383d7f8ca40c95be.sample"
+
+[deps]
+
+source_file="res://assets/audio/enemies/destroy_1.wav"
+dest_files=[ "res://.import/destroy_1.wav-53ca23f91cbf7694383d7f8ca40c95be.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

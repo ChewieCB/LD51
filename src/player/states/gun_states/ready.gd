@@ -8,6 +8,7 @@ func physics_update(delta: float):
 		if _actor.gun_anim_player.is_playing():
 			return
 		_actor.gun_anim_player.play("fire")
+		_actor.audio_player.play()
 		if _actor.aim_cast.is_colliding():
 			var target = _actor.aim_cast.get_collider()
 			if target.is_in_group("Enemy"):
