@@ -27,7 +27,7 @@ export (Material) var alert_transparent_mat
 export var max_health = 200
 export var health = 200 setget set_health
 
-var rotation_speed = deg2rad(90.0) # Since all values are in radians, this needs to be in radians too
+var rotation_speed = deg2rad(135.0) # Since all values are in radians, this needs to be in radians too
 
 var is_active = false setget set_is_active
 var can_ping  = false setget set_can_ping
@@ -42,8 +42,6 @@ func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
 	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
-#	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
-#	anim_player.seek(rand_range(0, 5))
 
 
 func _process(delta):
@@ -185,23 +183,15 @@ func set_has_seen_player(value):
 	match has_seen_player:
 		true:
 			match state_machine.state.name:
-				"Idle":
+				"Idle", "Tracking":
 					state_machine.transition_to("Alert")
+
 		false:
 			match state_machine.state.name:
-				"Alert":
-					if not tween.is_inside_tree():
-						return
+				"Tracking":
 					state_machine.transition_to("Idle")
-					tween.interpolate_property(
-						pivot, "rotation_degrees",
-						pivot.rotation_degrees, Vector3.ZERO,
-						2.0,
-						Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-					)
-					tween.start()
-					yield(tween, "tween_completed")
-					anim_state_machine.travel("rotate")
+				"Alert":
+					state_machine.transition_to("Tracking")
 				"Shooting":
 					state_machine.transition_to("Alert")
 

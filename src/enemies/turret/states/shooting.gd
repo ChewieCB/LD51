@@ -7,8 +7,6 @@ func enter(_msg := {}) -> void:
 	_actor.viewcone_mesh.set_surface_material(0, _actor.alert_transparent_mat)
 	yield(get_tree().create_timer(rand_range(0, 0.8)), "timeout")
 	_actor.anim_state_machine.travel("burst_fire")
-	# Do action here
-	#
 
 func update(_delta: float) -> void:
 	pass

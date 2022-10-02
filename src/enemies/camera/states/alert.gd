@@ -24,7 +24,5 @@ func physics_update(_delta: float) -> void:
 func exit() -> void:
 	for turret_path in _actor.linked_turrets:
 		var turret = _actor.get_node(turret_path)
-		turret.target = null
 		if turret.is_active:
 			turret.set_is_active(false)
-#		turret.state_machine.transition_to("Inactive")
