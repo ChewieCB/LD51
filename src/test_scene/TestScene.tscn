@@ -137,9 +137,8 @@ environment = SubResource( 3 )
 
 [node name="Cameras" type="Spatial" parent="."]
 
-[node name="SecurityCamera3" parent="Cameras" groups=["Enemy"] instance=ExtResource( 10 )]
-transform = Transform( -0.984335, 0.171011, -0.0428966, 0.118481, 0.82178, 0.557351, 0.130565, 0.543537, -0.829168, -3, 12, -85.8 )
-linked_turrets = [ NodePath("../../Turrets/Turret"), NodePath("../../Turrets/Turret2") ]
+[node name="SecurityCamera" parent="Cameras" instance=ExtResource( 10 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 12, -86.7 )
 
 [node name="Turrets" type="Spatial" parent="."]
 

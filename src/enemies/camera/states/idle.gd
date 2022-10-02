@@ -2,7 +2,7 @@ extends State
 
 
 func enter(_msg := {}) -> void:
-	_actor.eye_mesh.set_surface_material(0, _actor.idle_mat)
+	_actor.eye_mesh.set_surface_material(1, _actor.idle_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.idle_transparent_mat)
 
 

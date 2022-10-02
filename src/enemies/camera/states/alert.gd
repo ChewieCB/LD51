@@ -2,7 +2,7 @@ extends State
 
 
 func enter(_msg := {}) -> void:
-	_actor.eye_mesh.set_surface_material(0, _actor.alert_mat)
+	_actor.eye_mesh.set_surface_material(1, _actor.alert_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.alert_transparent_mat)
 	
 	if _actor.has_seen_player:
@@ -13,7 +13,8 @@ func enter(_msg := {}) -> void:
 				turret.set_is_active(true)
 			turret.state_machine.transition_to("Alert")
 
-func update(_delta: float) -> void:
+
+func update(delta: float) -> void:
 	pass
 
 

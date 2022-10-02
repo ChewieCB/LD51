@@ -1,14 +1,16 @@
 extends KinematicBody
 
 onready var state_machine = $StateMachine
-onready var pivot = $Pivot
-onready var eye_mesh = $Pivot/EyeMesh
-onready var viewcone = $Pivot/Viewcone
-onready var viewcone_mesh = $Pivot/Viewcone/Cone
-onready var ray = $Pivot/RayCast
+onready var base = $Mesh/CameraBase
+onready var pivot = $Mesh/EyePivot
+onready var eye_mesh = $Mesh/EyePivot/CameraEye
+onready var viewcone = $Mesh/EyePivot/CameraEye/Viewcone
+onready var viewcone_mesh = $Mesh/EyePivot/CameraEye/Viewcone/Cone
+onready var ray = $Mesh/EyePivot/CameraEye/RayCast
 onready var anim_player = $AnimationPlayer
 onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
+onready var state_label = $StateLabel
 
 onready var initial_rotation = self.rotation_degrees
 
@@ -32,22 +34,131 @@ var has_seen_player = false setget set_has_seen_player
 var can_interact = false
 var target: PlayerController = null
 
-var debug_trajectory_meshes = []
+# Tracking Speed
+export var elevation_speed_deg: float = 45
+export var rotation_speed_deg: float = 90
+# Rotation Constraints
+export var min_elevation: float = -30
+export var max_elevation: float = 30
+export var min_rotation: float = -60
+export var max_rotation: float = 60
+# movement
+onready var elevation_speed: float = deg2rad(elevation_speed_deg)
+onready var rotation_speed: float = deg2rad(rotation_speed_deg)
+# target calculation
+var ttc: float
+var current_target: Vector3
+var current_aim: Vector3
 
 
 func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
-	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
+	state_machine.connect("transitioned", self, "update_state_label")
+#	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
-	anim_player.play("rotate")
-	anim_player.seek(rand_range(0, 5))
+#	anim_player.play("rotate")
+#	anim_player.seek(rand_range(0, 5))
 	
 
 
-func _physics_process(_delta):
-	if has_seen_player == true:
-		pivot.look_at(target.global_transform.origin, self.global_transform.basis.y)
-#		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
+func _process(delta):
+	if has_seen_player and target:
+		# update target location
+		_update_target_location()
+		# move
+		_rotate(delta)
+		_elevate(delta)
+
+
+func _update_target_location() -> void:
+	current_target = target.global_transform.origin
+
+
+func _rotate(delta: float) -> void:
+	# get displacment
+	var y_target = _get_local_y()
+	# calculate step size and direction
+	var final_y = sign(y_target) * min(rotation_speed * delta, abs(y_target))
+	# rotate body
+	pivot.rotate_y(final_y)
+	# clamp
+	pivot.rotation_degrees.y = clamp(
+		pivot.rotation_degrees.y,
+		min_rotation, max_rotation
+	)
+
+
+func _elevate(delta: float) -> void:
+	# get displacment
+	var x_target = _get_global_x()
+	var x_diff = x_target - pivot.global_transform.basis.get_euler().x
+	var final_x = sign(x_diff) * min(elevation_speed * delta, abs(x_diff))
+	# elevate head
+	pivot.rotate_x(final_x)
+	# clamp
+	pivot.rotation_degrees.x = clamp(
+		pivot.rotation_degrees.x,
+		min_elevation, max_elevation
+	)
+
+
+func _rotate_pivot(delta):
+	var y_target = _get_local_y()
+	var final_y = sign(y_target) * min(rotation_speed * delta, abs(y_target))
+	pivot.rotate_y(final_y)
+
+
+func _rotate_guns(delta):
+	var x_target = _get_global_x()
+	var x_diff = x_target - eye_mesh.transform.basis.get_euler().x
+	var final_x = sign(x_diff) * min(rotation_speed * delta, abs(x_diff))
+	eye_mesh.rotate_x(final_x)
+	eye_mesh.rotation_degrees.x = clamp(
+		eye_mesh.rotation_degrees.x,
+		-90, 90
+	)
+
+#func _get_ttc() -> float:
+	# calculate everything once
+#	var to_target = target.global_transform.origin - pivot.global_transform.origin
+#	var target_velocity = target.linear_velocity
+#	# transform to quadratic
+#	var a = target_velocity.dot(target_velocity) - muzzle_velocity * muzzle_velocity
+#	var b = 2 * target_velocity.dot(to_target)
+#	var c = to_target.dot(to_target)
+#
+#	# don't divide by zero
+#	if a == 0:
+#		return 0.0
+#	# don't take sqrt of negative number
+#	var d = b * b - 4 * a * c
+#	if d < 0:
+#		return 0.0
+#
+#	var p = -b / (2 * a)
+#	var q = sqrt(d) / (2 * a)
+#	# solve
+#	var t1 = p - q
+#	var t2 = p + q
+#	# choose and return solution
+#	var t = 0
+#	if t1 > t2 and t2 > 0:
+#		t = t1
+#	else:
+#		t = t2
+#	# make sure t is possitive
+#	return max(0.0, t)
+
+
+func _get_local_y() -> float:
+	var local_target = pivot.to_local(current_target)
+	var y_angle = Vector3.FORWARD.angle_to(local_target * Vector3(1, 0, 1))
+	return y_angle * -sign(local_target.x)
+
+
+func _get_global_x() -> float:
+	var local_target = current_target - pivot.global_transform.origin
+	return (local_target * Vector3(1, 0, 1)).angle_to(local_target) * sign(local_target.y)
 
 
 func _input(event):
@@ -62,48 +173,13 @@ func ping_effect():
 	match state_machine.state.name:
 		"Idle":
 			# Flash red to indicate the ping has hit
-			eye_mesh.set_surface_material(0, alert_mat)
+			eye_mesh.set_surface_material(1, alert_mat)
 			viewcone_mesh.set_surface_material(0, alert_transparent_mat)
 			yield(get_tree().create_timer(1), "timeout")
-			eye_mesh.set_surface_material(0, idle_mat)
+			eye_mesh.set_surface_material(1, idle_mat)
 			viewcone_mesh.set_surface_material(0, idle_transparent_mat)
 		"Tracking":
 			state_machine.transition_to("Alert")
-
-
-func generate_debug_trajectory(trajectory_points, size):
-	if not GlobalFlags.SHOW_DEBUG_TRAJECTORIES:
-		return
-	
-	clear_debug_trajectory()
-	# Get scene root
-	var scene_root = get_tree().root.get_children()[0]
-	for _point in trajectory_points:
-		# Create sphere with low detail of size.
-		var sphere = SphereMesh.new()
-		sphere.radial_segments = 8
-		sphere.rings = 8
-		sphere.radius = size
-		sphere.height = size * 2
-		# Bright red material (unshaded).
-		var material = SpatialMaterial.new()
-		material.albedo_color = Color(1, 0, 0)
-		material.flags_unshaded = true
-		sphere.surface_set_material(0, material)
-		
-		# Add to meshinstance in the right place.
-		var node = MeshInstance.new()
-		node.mesh = sphere
-		if node.is_inside_tree():
-			node.global_transform.origin = _point
-		scene_root.add_child(node)
-		debug_trajectory_meshes.append(node)
-
-
-func clear_debug_trajectory():
-	for mesh in debug_trajectory_meshes:
-		mesh.queue_free()
-	debug_trajectory_meshes = []
 
 
 func destroy_camera():
@@ -115,6 +191,10 @@ func play_random_death_sfx():
 		var idx = int(rand_range(0, len(death_sfx)))
 		audio_player.stream = death_sfx[idx]
 		audio_player.play()
+
+
+func update_state_label(state_name) -> void:
+	state_label.text = state_name
 
 
 func _on_Viewcone_body_entered(body):
@@ -143,23 +223,24 @@ func _on_Viewcone_body_exited(body):
 
 func set_has_seen_player(value):
 	has_seen_player = value
-	match has_seen_player:
-		true:
-			state_machine.transition_to("Tracking")
-			anim_player.stop()
-		false:
-			if not tween.is_inside_tree():
-				return
-			state_machine.transition_to("Idle")
-			tween.interpolate_property(
-				pivot, "rotation_degrees",
-				pivot.rotation_degrees, Vector3.ZERO,
-				2.0,
-				Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-			)
-			tween.start()
-			yield(tween, "tween_completed")
-			anim_player.play("rotate")
+#	match has_seen_player:
+#		true:
+#			state_machine.transition_to("Tracking")
+##			anim_player.stop()
+#		false:
+##			if not tween.is_inside_tree():
+##				return
+#			state_machine.transition_to("Idle")
+#			anim_player.stop()
+#			tween.interpolate_property(
+#				eye_mesh, "rotation_degrees",
+#				eye_mesh.rotation_degrees, Vector3.ZERO,
+#				2.0,
+#				Tween.TRANS_QUAD, Tween.EASE_IN_OUT
+#			)
+#			tween.start()
+#			yield(tween, "tween_completed")
+#			anim_player.play("rotate")
 
 
 func set_health(value):
