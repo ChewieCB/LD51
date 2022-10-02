@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/test_scene/test_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://assets/models/environment/door/Door Frame - Temp.material" type="Material" id=8]
 [ext_resource path="res://assets/HDRI/satara_night_no_lamps_2k.hdr" type="Texture" id=9]
 [ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/models/enemies/turret/Turret.glb" type="PackedScene" id=11]
 
 [sub_resource type="PanoramaSky" id=7]
 radiance_size = 4
@@ -240,6 +239,3 @@ quality = 3
 environment_mode = 1
 environment_min_light = Color( 0.164706, 0.196078, 0.129412, 1 )
 capture_quality = 2
-
-[node name="Turret" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.723577, 0.2, -7.08682 )
