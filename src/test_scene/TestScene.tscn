@@ -9,8 +9,8 @@
 [ext_resource path="res://assets/models/environment/door/Door - Temp.material" type="Material" id=7]
 [ext_resource path="res://assets/models/environment/door/Door Frame - Temp.material" type="Material" id=8]
 [ext_resource path="res://assets/HDRI/satara_night_no_lamps_2k.hdr" type="Texture" id=9]
-[ext_resource path="res://src/enemies/turret/Turret.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/enemies/turret/Turret.tscn" type="PackedScene" id=11]
 
 [sub_resource type="PanoramaSky" id=7]
 radiance_size = 4
@@ -147,11 +147,11 @@ linked_turrets = [ NodePath("../../Turrets/Turret"), NodePath("../../Turrets/Tur
 
 [node name="Turrets" type="Spatial" parent="."]
 
-[node name="Turret" parent="Turrets" groups=["Enemy"] instance=ExtResource( 9 )]
-transform = Transform( -0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 6, 0.4, -63 )
+[node name="Turret" parent="Turrets" instance=ExtResource( 11 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 9, 1.05, -76.5 )
 
-[node name="Turret2" parent="Turrets" groups=["Enemy"] instance=ExtResource( 9 )]
-transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -12, 0.4, -63 )
+[node name="Turret2" parent="Turrets" instance=ExtResource( 11 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -13.5, 1.05, -76.5 )
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 6 )

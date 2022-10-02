@@ -1,12 +1,15 @@
 extends KinematicBody
 
 onready var state_machine = $StateMachine
-onready var pivot = $Pivot/Rotate
-onready var eye_mesh = $Pivot/Rotate/EyeMesh
-onready var viewcone = $Pivot/Rotate/Viewcone
-onready var viewcone_mesh = $Pivot/Rotate/Viewcone/Cone
-onready var rays = [$Pivot/Rotate/Gun1/AimCast, $Pivot/Rotate/Gun2/AimCast,$Pivot/Rotate/Gun3/AimCast]
+onready var pivot = $TurretMesh/TurretBase/TurretHinge/TurretGuns
+onready var eye_mesh = $TurretMesh/TurretBase/TurretHinge/TurretGuns
+onready var viewcone = $TurretMesh/TurretBase/TurretHinge/TurretGuns/Viewcone
+onready var viewcone_mesh = $TurretMesh/TurretBase/TurretHinge/TurretGuns/Viewcone/Cone
+onready var rays = $TurretMesh/TurretBase/TurretHinge/TurretGuns/Raycasts.get_children()
 onready var anim_player = $AnimationPlayer
+onready var anim_tree = $AnimationTree
+onready var anim_state_machine = anim_tree["parameters/playback"]
+onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
 
 onready var initial_rotation = self.rotation_degrees
@@ -31,34 +34,34 @@ var debug_trajectory_meshes = []
 
 func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
-#	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
+	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
-	anim_player.play("rotate")
-	anim_player.seek(rand_range(0, 5))
+#	anim_player.seek(rand_range(0, 5))
 
 
 func activate():
-	anim_player.play("activate")
-	yield(anim_player, "animation_finished")
-	tween.interpolate_property(
-				pivot, "rotation_degrees",
-				pivot.rotation_degrees, Vector3.ZERO,
-				2.0,
-				Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-			)
-			tween.start()
-			yield(tween, "tween_completed")
+	anim_state_machine.travel("rotate")
+#	yield(anim_player, "animation_finished")
+#	tween.interpolate_property(
+#		pivot, "rotation_degrees",
+#		pivot.rotation_degrees, Vector3.ZERO,
+#		2.0,
+#		Tween.TRANS_QUAD, Tween.EASE_IN_OUT
+#	)
+#	tween.start()
+#	yield(tween, "tween_completed")
 
 
 func deactivate():
-	anim_player.play_backwards("activate")
-	yield(anim_player, "animation_finished")
+	anim_state_machine.travel("inactive")
+#	yield(anim_player, "animation_finished")
 
 
-func _physics_process(_delta):
-	if has_seen_player == true:
-		pivot.look_at(target.global_transform.origin, self.global_transform.basis.y)
-#		pivot.rotate_object_local(Vector3(0,1,0), 3.14)
+#func _physics_process(_delta):
+#	if has_seen_player == true:
+##		anim_state_machine.travel("default")
+#		# TODO - separate rotation axis into animating the guns and the hinge separately
+#		pivot.look_at(target.global_transform.origin, self.global_transform.basis.y)
 
 
 func _input(event):
@@ -78,8 +81,6 @@ func ping_effect():
 			state_machine.transition_to("Idle")
 		"Tracking":
 			state_machine.transition_to("Alert")
-	
-			
 
 
 func generate_debug_trajectory(trajectory_points, size):
@@ -146,7 +147,7 @@ func set_has_seen_player(value):
 	match has_seen_player:
 		true:
 			state_machine.transition_to("Tracking")
-			anim_player.stop()
+#			anim_player.stop()
 #			if ray.is_colliding():
 #				if ray.get_collider() is PlayerController:
 #					target = ray.get_collider()
@@ -164,7 +165,7 @@ func set_has_seen_player(value):
 			)
 			tween.start()
 			yield(tween, "tween_completed")
-			anim_player.play("rotate")
+			anim_state_machine.travel("rotate")
 
 
 func set_health(value):
