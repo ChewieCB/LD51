@@ -19,6 +19,8 @@ export (Material) var tracking_transparent_mat
 export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
+export (Array, AudioStream) var death_sfx
+
 export var max_health = 100
 export var health = 100 setget set_health
 
@@ -63,8 +65,6 @@ func ping_effect():
 			state_machine.transition_to("Idle")
 		"Tracking":
 			state_machine.transition_to("Alert")
-	
-			
 
 
 func generate_debug_trajectory(trajectory_points, size):
@@ -104,6 +104,13 @@ func clear_debug_trajectory():
 
 func destroy_camera():
 	self.queue_free()
+
+
+func play_random_death_sfx():
+	if death_sfx:
+		var idx = int(rand_range(0, len(death_sfx)))
+		audio_player.stream = death_sfx[idx]
+		audio_player.play()
 
 
 func _on_Viewcone_body_entered(body):

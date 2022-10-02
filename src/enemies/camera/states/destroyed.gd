@@ -5,7 +5,7 @@ signal destroyed
 
 func enter(_msg := {}) -> void:
 	_actor.anim_player.play("death")
-	_actor.audio_player.play()
+	_actor.play_random_death_sfx()
 	yield(_actor.anim_player, "animation_finished")
 	yield(_actor.audio_player, "finished")
 	emit_signal("destroyed")

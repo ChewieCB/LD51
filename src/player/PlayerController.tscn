@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
@@ -10,7 +10,9 @@
 [ext_resource path="res://src/player/states/gun_states/ready.gd" type="Script" id=8]
 [ext_resource path="res://assets/models/gun/Rifle.material" type="Material" id=9]
 [ext_resource path="res://assets/models/gun/Mag.material" type="Material" id=10]
-[ext_resource path="res://assets/audio/weapons/rifle/rifle_fire_1.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/weapons/rifle/Player_Fire_1.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/weapons/rifle/Player_Fire_2.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/weapons/rifle/Player_Fire_3.wav" type="AudioStream" id=14]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "ScifiRifle_Cube013"
@@ -182,14 +184,16 @@ initial_state = NodePath("Ready")
 
 [node name="Ready" type="Node" parent="Camera/Hand/WeaponStateMachine"]
 script = ExtResource( 8 )
+shot_sfx = [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 
 [node name="GunAnimationPlayer" type="AnimationPlayer" parent="Camera/Hand"]
 anims/fire = SubResource( 7 )
 
+[node name="GunAudioPlayer" type="AudioStreamPlayer" parent="Camera/Hand"]
+
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 11 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
