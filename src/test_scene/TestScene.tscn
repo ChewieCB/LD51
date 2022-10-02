@@ -216,7 +216,6 @@ omni_attenuation = 1.1487
 
 [node name="OmniLight3" type="OmniLight" parent="Lighting"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 6, -39 )
-light_color = Color( 1, 0.0117647, 0.0117647, 1 )
 light_indirect_energy = 5.0
 shadow_enabled = true
 omni_range = 30.0
@@ -224,7 +223,6 @@ omni_attenuation = 1.1487
 
 [node name="OmniLight4" type="OmniLight" parent="Lighting"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 6, -72 )
-light_color = Color( 1, 0, 0, 1 )
 light_indirect_energy = 5.0
 shadow_enabled = true
 omni_range = 30.0

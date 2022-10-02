@@ -2,6 +2,7 @@ extends KinematicBody
 
 onready var state_machine = $StateMachine
 onready var pivot = $TurretMesh/TurretBase/TurretHinge/TurretGuns
+onready var base = $TurretMesh/TurretBase
 onready var eye_mesh = $TurretMesh/TurretBase/TurretHinge/TurretGuns
 onready var viewcone = $TurretMesh/TurretBase/TurretHinge/TurretGuns/Viewcone
 onready var viewcone_mesh = $TurretMesh/TurretBase/TurretHinge/TurretGuns/Viewcone/Cone
@@ -40,8 +41,11 @@ func _ready():
 
 
 func activate():
-	anim_state_machine.travel("rotate")
-#	yield(anim_player, "animation_finished")
+	anim_state_machine.travel("default")
+	pivot.look_at(
+		target.global_transform.origin, 
+		global_transform.basis.y
+	)
 #	tween.interpolate_property(
 #		pivot, "rotation_degrees",
 #		pivot.rotation_degrees, Vector3.ZERO,
@@ -55,13 +59,6 @@ func activate():
 func deactivate():
 	anim_state_machine.travel("inactive")
 #	yield(anim_player, "animation_finished")
-
-
-#func _physics_process(_delta):
-#	if has_seen_player == true:
-##		anim_state_machine.travel("default")
-#		# TODO - separate rotation axis into animating the guns and the hinge separately
-#		pivot.look_at(target.global_transform.origin, self.global_transform.basis.y)
 
 
 func _input(event):
