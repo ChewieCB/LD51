@@ -1,9 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/models/environment/door_control/Door_Control_Baked_AO.png" type="Texture" id=1]
-[ext_resource path="res://assets/models/environment/door_control/Door_Control_Baked_ROUGHNESS.png" type="Texture" id=2]
-[ext_resource path="res://assets/models/environment/door_control/Door_Control_Baked_BASE COLOR.png" type="Texture" id=3]
-[ext_resource path="res://assets/models/environment/door_control/Door_Control_Baked_NORMAL.png" type="Texture" id=4]
+[ext_resource path="res://assets/models/environment/door_control/DoorControlMaterial.tres" type="Material" id=1]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Door Control_Cube007"
@@ -19,22 +16,9 @@ surfaces/0 = {
 "vertex_count": 354
 }
 
-[sub_resource type="SpatialMaterial" id=2]
-albedo_texture = ExtResource( 3 )
-roughness_texture = ExtResource( 2 )
-roughness_texture_channel = 4
-normal_enabled = true
-normal_scale = 1.0
-normal_texture = ExtResource( 4 )
-ao_enabled = true
-ao_light_affect = 0.0
-ao_texture = ExtResource( 1 )
-ao_on_uv2 = false
-ao_texture_channel = 4
-
 [node name="Door Control" type="Spatial"]
 
 [node name="Door Control Mesh" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
 skeleton = NodePath("")
-material/0 = SubResource( 2 )
+material/0 = ExtResource( 1 )

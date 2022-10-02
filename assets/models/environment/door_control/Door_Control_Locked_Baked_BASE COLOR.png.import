@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Door_Control_Baked_BASE COLOR.png-66622b0a94b12cfe3e907d395dfb3de7.s3tc.stex"
-path.etc="res://.import/Door_Control_Baked_BASE COLOR.png-66622b0a94b12cfe3e907d395dfb3de7.etc.stex"
+path.s3tc="res://.import/Door_Control_Locked_Baked_BASE COLOR.png-080ded7c64071746702efb823931066e.s3tc.stex"
+path.etc="res://.import/Door_Control_Locked_Baked_BASE COLOR.png-080ded7c64071746702efb823931066e.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/models/environment/door_control/Door_Control_Baked_BASE COLOR.png"
-dest_files=[ "res://.import/Door_Control_Baked_BASE COLOR.png-66622b0a94b12cfe3e907d395dfb3de7.s3tc.stex", "res://.import/Door_Control_Baked_BASE COLOR.png-66622b0a94b12cfe3e907d395dfb3de7.etc.stex" ]
+source_file="res://assets/models/environment/door_control/Door_Control_Locked_Baked_BASE COLOR.png"
+dest_files=[ "res://.import/Door_Control_Locked_Baked_BASE COLOR.png-080ded7c64071746702efb823931066e.s3tc.stex", "res://.import/Door_Control_Locked_Baked_BASE COLOR.png-080ded7c64071746702efb823931066e.etc.stex" ]
 
 [params]
 
