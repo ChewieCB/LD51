@@ -36,4 +36,4 @@ func set_is_open(value):
 		true:
 			anim_player.play("open")
 		false:
-			anim_player.play("closed")
+			anim_player.play("close")
