@@ -6,6 +6,7 @@ onready var collider = $BodyCollider
 onready var foot_collider = $FootCollider
 onready var tween = $Tween
 onready var audio_player = $AudioStreamPlayer3D
+onready var gun_audio_player = $Camera/Hand/GunAudioPlayer
 
 onready var hue = 0
 

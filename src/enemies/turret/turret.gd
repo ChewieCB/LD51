@@ -13,6 +13,8 @@ onready var anim_state_machine = anim_tree["parameters/playback"]
 onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
 
+onready var state_label = $StateLabel
+
 onready var initial_rotation = self.rotation_degrees
 
 export (Material) var idle_mat
@@ -35,6 +37,7 @@ var debug_trajectory_meshes = []
 
 func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
+	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
 #	anim_player.seek(rand_range(0, 5))
@@ -42,23 +45,11 @@ func _ready():
 
 func activate():
 	anim_state_machine.travel("default")
-	pivot.look_at(
-		target.global_transform.origin, 
-		global_transform.basis.y
-	)
-#	tween.interpolate_property(
-#		pivot, "rotation_degrees",
-#		pivot.rotation_degrees, Vector3.ZERO,
-#		2.0,
-#		Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-#	)
-#	tween.start()
-#	yield(tween, "tween_completed")
 
 
 func deactivate():
-	anim_state_machine.travel("inactive")
-#	yield(anim_player, "animation_finished")
+	if not state_machine.state.name == "Destroyed":
+		anim_state_machine.travel("inactive")
 
 
 func _input(event):
@@ -70,14 +61,22 @@ func _input(event):
 
 
 func ping_effect():
-	match state_machine.state.name:
-		"Idle":
-			# Flash red to indicate the ping has hit
-			state_machine.transition_to("Alert")
-			yield(get_tree().create_timer(0.2), "timeout")
-			state_machine.transition_to("Idle")
-		"Tracking":
-			state_machine.transition_to("Alert")
+	if is_active:
+		match state_machine.state.name:
+			"Idle":
+				# Flash red to indicate the ping has hit
+				state_machine.transition_to("Alert")
+				yield(get_tree().create_timer(0.2), "timeout")
+				state_machine.transition_to("Idle")
+			"Tracking":
+				state_machine.transition_to("Alert")
+			"Alert":
+				state_machine.transition_to("Shooting")
+				# For now yield for the animation time and flip back,
+				# in future we want to execute some code in the state
+				# before returning
+				yield(get_tree().create_timer(1.1), "timeout")
+				state_machine.transition_to("Alert")
 
 
 func generate_debug_trajectory(trajectory_points, size):
@@ -120,6 +119,10 @@ func destroy():
 #	self.queue_free()
 
 
+func update_state_label(state_name) -> void:
+	state_label.text = state_name
+
+
 func _on_Viewcone_body_entered(body):
 	if state_machine.state.name == "Destroyed":
 		return
@@ -144,26 +147,26 @@ func set_has_seen_player(value):
 	has_seen_player = value
 	match has_seen_player:
 		true:
-			state_machine.transition_to("Tracking")
-#			anim_player.stop()
-#			if ray.is_colliding():
-#				if ray.get_collider() is PlayerController:
-#					target = ray.get_collider()
-#				else:
-#					has_seen_player = false
+			match state_machine.state.name:
+				"Idle":
+					state_machine.transition_to("Alert")
 		false:
-			if not tween.is_inside_tree():
-				return
-			state_machine.transition_to("Idle")
-			tween.interpolate_property(
-				pivot, "rotation_degrees",
-				pivot.rotation_degrees, Vector3.ZERO,
-				2.0,
-				Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-			)
-			tween.start()
-			yield(tween, "tween_completed")
-			anim_state_machine.travel("rotate")
+			match state_machine.state.name:
+				"Alert":
+					if not tween.is_inside_tree():
+						return
+					state_machine.transition_to("Idle")
+					tween.interpolate_property(
+						pivot, "rotation_degrees",
+						pivot.rotation_degrees, Vector3.ZERO,
+						2.0,
+						Tween.TRANS_QUAD, Tween.EASE_IN_OUT
+					)
+					tween.start()
+					yield(tween, "tween_completed")
+					anim_state_machine.travel("rotate")
+				"Shooting":
+					state_machine.transition_to("Alert")
 
 
 func set_health(value):

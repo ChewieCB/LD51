@@ -1,5 +1,15 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/audio/ping/Alarm.wav" type="AudioStream" id=1]
+[ext_resource path="res://src/global/ping_timer/ping_timer.gd" type="Script" id=2]
 
 [node name="Timer" type="Timer"]
 wait_time = 10.0
 autostart = true
+script = ExtResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -6.0
+
+[connection signal="timeout" from="." to="." method="_on_Timer_timeout"]
