@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/enemies/Viewcone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/enemies/camera/states/state_machine.gd" type="Script" id=2]
@@ -96,7 +96,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 0.353553, 1, 2.46229 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 14, 0, -65 ), Vector3( -23, 0, -32 ), Vector3( 0, 0, -45 ) ]
+"values": [ Vector3( 0, 90, 0 ), Vector3( 14, 90, -65 ), Vector3( -23, 90, -32 ), Vector3( 0, 90, -45 ) ]
 }
 tracks/1/type = "audio"
 tracks/1/path = NodePath("AudioStreamPlayer3D")
@@ -123,10 +123,54 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [  ]
+"values": [ Vector3( 0, 90, 0 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "find"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mesh/EyePivot/CameraEye:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 0.233258, 1.7411 ),
+"update": 0,
+"values": [ Vector3( 0, 90, 0 ), Vector3( 180, 90, 0 ), Vector3( 0, 90, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Mesh/EyePivot/CameraEye:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 0.233258, 1.7411 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.4 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "lose"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mesh/EyePivot/CameraEye:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1.86607, 1, 1, 1, 1, 0.420448 ),
+"update": 0,
+"values": [ Vector3( 0, 90, 0 ), Vector3( 0, 102, 0 ), Vector3( 0, 78, 0 ), Vector3( 0, 102, 0 ), Vector3( 0, 78, 0 ), Vector3( 0, 90, 0 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -208,7 +252,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 90, 0 ), Vector3( 0, 150, 0 ), Vector3( 0, 150, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 30, 0 ), Vector3( 0, 30, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 90, 0 ) ]
 }
 
 [sub_resource type="SphereShape" id=7]
@@ -292,6 +336,8 @@ script = ExtResource( 13 )
 autoplay = "default"
 anims/death = SubResource( 10 )
 anims/default = SubResource( 16 )
+anims/find = SubResource( 17 )
+anims/lose = SubResource( 18 )
 anims/rotate = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]

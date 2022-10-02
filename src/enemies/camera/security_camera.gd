@@ -56,18 +56,15 @@ func _ready():
 	state_machine.connect("transitioned", self, "update_state_label")
 #	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
-#	anim_player.play("rotate")
-#	anim_player.seek(rand_range(0, 5))
-	
 
 
-func _process(delta):
-	if has_seen_player and target:
-		# update target location
-		_update_target_location()
-		# move
-		_rotate(delta)
-		_elevate(delta)
+#func _process(delta):
+#	if has_seen_player and target:
+#		# update target location
+#		_update_target_location()
+#		# move
+#		_rotate(delta)
+#		_elevate(delta)
 
 
 func _update_target_location() -> void:
@@ -117,37 +114,6 @@ func _rotate_guns(delta):
 		eye_mesh.rotation_degrees.x,
 		-90, 90
 	)
-
-#func _get_ttc() -> float:
-	# calculate everything once
-#	var to_target = target.global_transform.origin - pivot.global_transform.origin
-#	var target_velocity = target.linear_velocity
-#	# transform to quadratic
-#	var a = target_velocity.dot(target_velocity) - muzzle_velocity * muzzle_velocity
-#	var b = 2 * target_velocity.dot(to_target)
-#	var c = to_target.dot(to_target)
-#
-#	# don't divide by zero
-#	if a == 0:
-#		return 0.0
-#	# don't take sqrt of negative number
-#	var d = b * b - 4 * a * c
-#	if d < 0:
-#		return 0.0
-#
-#	var p = -b / (2 * a)
-#	var q = sqrt(d) / (2 * a)
-#	# solve
-#	var t1 = p - q
-#	var t2 = p + q
-#	# choose and return solution
-#	var t = 0
-#	if t1 > t2 and t2 > 0:
-#		t = t1
-#	else:
-#		t = t2
-#	# make sure t is possitive
-#	return max(0.0, t)
 
 
 func _get_local_y() -> float:
@@ -223,24 +189,11 @@ func _on_Viewcone_body_exited(body):
 
 func set_has_seen_player(value):
 	has_seen_player = value
-#	match has_seen_player:
-#		true:
-#			state_machine.transition_to("Tracking")
-##			anim_player.stop()
-#		false:
-##			if not tween.is_inside_tree():
-##				return
-#			state_machine.transition_to("Idle")
-#			anim_player.stop()
-#			tween.interpolate_property(
-#				eye_mesh, "rotation_degrees",
-#				eye_mesh.rotation_degrees, Vector3.ZERO,
-#				2.0,
-#				Tween.TRANS_QUAD, Tween.EASE_IN_OUT
-#			)
-#			tween.start()
-#			yield(tween, "tween_completed")
-#			anim_player.play("rotate")
+	match has_seen_player:
+		true:
+			state_machine.transition_to("Tracking")
+		false:
+			state_machine.transition_to("Idle")
 
 
 func set_health(value):
