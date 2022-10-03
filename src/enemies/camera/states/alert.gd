@@ -12,6 +12,7 @@ func enter(_msg := {}) -> void:
 			turret.target = _actor.target
 			if not turret.is_active:
 				turret.set_is_active(true)
+			turret.state_machine.transition_to("Shooting")
 			turret.state_machine.transition_to("Alert")
 
 

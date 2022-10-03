@@ -7,8 +7,10 @@ func enter(_msg := {}) -> void:
 	_actor.viewcone_mesh.set_surface_material(0, _actor.tracking_transparent_mat)
 	_actor.anim_state_machine.travel("default")
 
-func update(_delta: float) -> void:
-	pass
+func update(delta: float) -> void:
+	if _actor.target:
+		_actor._rotate_base(delta, _actor.slower_rotation_speed)
+		_actor._rotate_guns(delta, _actor.slower_rotation_speed)
 
 
 func physics_update(_delta: float) -> void:

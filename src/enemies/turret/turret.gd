@@ -13,6 +13,8 @@ onready var anim_state_machine = anim_tree["parameters/playback"]
 onready var audio_player = $AudioStreamPlayer3D
 onready var tween = $Tween
 
+onready var aim_casts = $TurretMesh/TurretBase/TurretHinge/TurretGuns/Raycasts
+
 onready var state_label = $StateLabel
 
 onready var initial_rotation = self.rotation_degrees
@@ -27,7 +29,11 @@ export (Material) var alert_transparent_mat
 export var max_health = 200
 export var health = 200 setget set_health
 
-var rotation_speed = deg2rad(135.0) # Since all values are in radians, this needs to be in radians too
+export var damage = 20
+
+export var rotation_speed = deg2rad(65.0) # Since all values are in radians, this needs to be in radians too
+export var slower_rotation_speed = deg2rad(45.0)
+export var faster_rotation_speed = deg2rad(80.0)
 
 var is_active = false setget set_is_active
 var can_ping  = false setget set_can_ping
@@ -44,23 +50,23 @@ func _ready():
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 
 
-func _process(delta):
-	if has_seen_player and target:
-		# Separate rotation axis to animate the base and the gun components separately
-		_rotate_base(delta)
-		_rotate_guns(delta)
+#func _process(delta):
+#	if has_seen_player and target:
+#		# Separate rotation axis to animate the base and the gun components separately
+#		_rotate_base(delta)
+#		_rotate_guns(delta)
 
 
-func _rotate_base(delta):
+func _rotate_base(delta, speed):
 	var y_target = _get_local_y()
-	var final_y = sign(y_target) * min(rotation_speed * delta, abs(y_target))
+	var final_y = sign(y_target) * min(speed * delta, abs(y_target))
 	base.rotate_y(final_y)
 
 
-func _rotate_guns(delta):
+func _rotate_guns(delta, speed):
 	var x_target = _get_global_x()
 	var x_diff = x_target - eye_mesh.transform.basis.get_euler().x
-	var final_x = sign(x_diff) * min(rotation_speed * delta, abs(x_diff))
+	var final_x = sign(x_diff) * min(speed * delta, abs(x_diff))
 	eye_mesh.rotate_x(final_x)
 	eye_mesh.rotation_degrees.x = clamp(
 		eye_mesh.rotation_degrees.x,
@@ -69,6 +75,7 @@ func _rotate_guns(delta):
 
 func _get_global_x():
 	var local_target = target.global_transform.origin - eye_mesh.global_transform.origin
+	local_target.y -= 0.5
 	return (local_target * Vector3(1, 0, 1)).angle_to(local_target) * sign(local_target.y)
 
 

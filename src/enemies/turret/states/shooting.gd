@@ -8,8 +8,20 @@ func enter(_msg := {}) -> void:
 	yield(get_tree().create_timer(rand_range(0, 0.8)), "timeout")
 	_actor.anim_state_machine.travel("burst_fire")
 
-func update(_delta: float) -> void:
-	pass
+func update(delta: float) -> void:
+	if _actor.target:
+		_actor._rotate_base(delta, _actor.faster_rotation_speed)
+		_actor._rotate_guns(delta, _actor.faster_rotation_speed)
+
+
+func check_hit():
+	# Check all three raycasts, if one of them hits the player then deal damage
+	for ray in _actor.aim_casts.get_children():
+		if ray.is_colliding():
+			var target = ray.get_collider()
+			if target is PlayerController:
+				target.health -= _actor.damage
+				break
 
 
 func physics_update(_delta: float) -> void:

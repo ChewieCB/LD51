@@ -25,9 +25,14 @@ onready var state_machine = $StateMachine
 onready var movement_state = $StateMachine/Movement
 
 onready var debug_menu = $UI/DebugMenu
+onready var hit_screen = $UI/HitScreen
+onready var hud = $UI/HUD
 
 const SNAP_DIRECTION = Vector3.DOWN
 const SNAP_LENGTH = 32
+
+export var max_health = 100
+var health = max_health setget set_health
 
 
 func _ready():
@@ -56,3 +61,17 @@ func set_inertia(value):
 
 func set_speed(value):
 	movement_state.move_speed = value
+
+
+func set_health(value):
+	if value < health:
+		hit_screen.hit()
+		
+	health = clamp(value, 0, max_health)
+	
+	hud.health_val_label.text = str(health)
+	
+	if health == 0:
+		print("You died!")
+		# TODO - add game over/proper restart
+		get_tree().reload_current_scene()

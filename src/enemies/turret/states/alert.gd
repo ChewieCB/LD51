@@ -6,8 +6,10 @@ func enter(_msg := {}) -> void:
 #	_actor.eye_mesh.set_surface_material(0, _actor.alert_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.alert_transparent_mat)
 
-func update(_delta: float) -> void:
-	pass
+func update(delta: float) -> void:
+	if _actor.target:
+		_actor._rotate_base(delta, _actor.rotation_speed)
+		_actor._rotate_guns(delta, _actor.rotation_speed)
 
 
 func physics_update(_delta: float) -> void:
