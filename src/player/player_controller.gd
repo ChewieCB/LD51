@@ -62,7 +62,7 @@ func _physics_process(delta) -> void:
 	gun_camera.global_transform = camera.global_transform
 
 
-func play_random_sfx(player: AudioStreamPlayer3D, sfx_array: Array):
+func play_random_sfx(player, sfx_array: Array):
 	# If we already have a stream set, remove it
 	var existing_sfx = []
 	for element in sfx_array:

@@ -29,7 +29,7 @@ export (Material) var alert_transparent_mat
 export var max_health = 200
 export var health = 200 setget set_health
 
-export var damage = 50
+export var damage = 10
 
 export var rotation_speed = deg2rad(65.0) # Since all values are in radians, this needs to be in radians too
 export var slower_rotation_speed = deg2rad(45.0)

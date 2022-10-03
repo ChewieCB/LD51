@@ -25,7 +25,7 @@ func _input(event):
 
 
 func _on_Area_body_entered(body):
-	if is_sealed:
+	if is_sealed or not GlobalFlags.PLAYER_CONTROLS_ACTIVE:
 		return
 	if body is PlayerController:
 		can_interact = true
@@ -33,7 +33,7 @@ func _on_Area_body_entered(body):
 
 
 func _on_Area_body_exited(body):
-	if is_sealed:
+	if is_sealed or not GlobalFlags.PLAYER_CONTROLS_ACTIVE:
 		return
 	if body is PlayerController:
 		can_interact = false
