@@ -10,6 +10,6 @@ script = ExtResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
-volume_db = -6.0
+volume_db = -10.0
 
 [connection signal="timeout" from="." to="." method="_on_Timer_timeout"]
