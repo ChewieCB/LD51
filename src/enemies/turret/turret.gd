@@ -26,10 +26,10 @@ export (Material) var tracking_transparent_mat
 export (Material) var alert_mat
 export (Material) var alert_transparent_mat
 
-export var max_health = 200
-export var health = 200 setget set_health
+export var max_health = 300
+export var health = 300 setget set_health
 
-export var damage = 10
+export var damage = 25
 
 export var rotation_speed = deg2rad(65.0) # Since all values are in radians, this needs to be in radians too
 export var slower_rotation_speed = deg2rad(45.0)
@@ -161,8 +161,9 @@ func clear_debug_trajectory():
 
 
 func destroy():
-	yield(get_tree().create_timer(1.0), "timeout")
-	self.queue_free()
+	pass
+#	yield(get_tree().create_timer(1.0), "timeout")
+#	self.queue_free()
 
 
 func update_state_label(state_name) -> void:

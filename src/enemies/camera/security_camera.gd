@@ -149,8 +149,9 @@ func ping_effect():
 
 
 func destroy_camera():
-	yield(get_tree().create_timer(2.0), "timeout")
-	self.queue_free()
+	pass
+#	yield(get_tree().create_timer(2.0), "timeout")
+#	self.queue_free()
 
 
 func play_random_death_sfx():
