@@ -48,6 +48,9 @@ func _ready():
 	PingTimer.connect("timeout", self, "ping_effect")
 	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
+	yield(owner, "ready")
+	if is_active:
+		activate()
 
 
 #func _process(delta):
@@ -86,7 +89,7 @@ func _get_local_y():
 
 
 func activate():
-	anim_state_machine.travel("default")
+	state_machine.transition_to("Alert")
 
 
 func deactivate():
