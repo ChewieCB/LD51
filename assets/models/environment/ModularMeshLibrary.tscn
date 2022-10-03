@@ -1,6 +1,4 @@
-[gd_scene load_steps=30 format=2]
-
-[ext_resource path="res://src/props/door/Door.tscn" type="PackedScene" id=15]
+[gd_scene load_steps=29 format=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Ceiling_Plane014"
@@ -385,5 +383,3 @@ collision_mask = 7
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall/StaticBody"]
 shape = SubResource( 28 )
-
-[node name="Door" parent="." instance=ExtResource( 15 )]

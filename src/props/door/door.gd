@@ -8,6 +8,11 @@ export (bool) var is_open = false setget set_is_open
 export (bool) var is_sealed = false
 
 
+func _ready():
+	yield(owner, "ready")
+	set_is_open(is_open)
+
+
 func _input(event):
 	if not can_interact or is_sealed:
 		return
@@ -36,9 +41,9 @@ func _on_Area_body_exited(body):
 
 
 func set_is_open(value):
-	if not anim_player:
-		anim_player = $AnimationPlayer
 	is_open = value
+	if not anim_player:
+		return
 	match is_open:
 		true:
 			anim_player.play("open")
