@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/models/environment/props/Desk.glb" type="PackedScene" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/models/environment/props/ComputerRack01.glb" type="PackedScene" id=15]
 [ext_resource path="res://src/props/door_control/DoorControl.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/models/environment/prop_gridmap.tres" type="MeshLibrary" id=17]
 
 [sub_resource type="PanoramaSky" id=7]
 radiance_size = 4
@@ -144,9 +145,23 @@ transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 1.5, 19.5
 
 [node name="Lighting" type="Spatial" parent="."]
 
-[node name="OmniLight" type="OmniLight" parent="Lighting"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01965, 0 )
-omni_range = 4.0
+[node name="SpotLight" type="SpotLight" parent="Lighting"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.06713, -2.47899e-08 )
+light_color = Color( 0.8, 0.941176, 0.658824, 1 )
+shadow_enabled = true
+shadow_bias = 0.3
+spot_attenuation = 1.23114
+spot_angle = 60.0
+spot_angle_attenuation = 1.31951
+
+[node name="SpotLight2" type="SpotLight" parent="Lighting"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.06713, -16.5 )
+light_color = Color( 0.8, 0.941176, 0.658824, 1 )
+shadow_enabled = true
+shadow_bias = 0.3
+spot_attenuation = 1.23114
+spot_angle = 60.0
+spot_angle_attenuation = 1.31951
 
 [node name="OmniLight2" type="OmniLight" parent="Lighting"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01965, -16.5 )
@@ -188,7 +203,7 @@ omni_range = 4.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.25, 1.01965, -21.75 )
 omni_range = 4.0
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="Geom" type="GridMap" parent="."]
 mesh_library = ExtResource( 6 )
 use_in_baked_light = true
 cell_size = Vector3( 1.5, 1.5, 1.5 )
@@ -201,6 +216,21 @@ data = {
 __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 2, 13, -20 )
+}
+
+[node name="LightGrid" type="GridMap" parent="."]
+mesh_library = ExtResource( 17 )
+use_in_baked_light = true
+cell_size = Vector3( 1.5, 1.5, 1.5 )
+cell_center_x = false
+cell_center_z = false
+collision_mask = 7
+data = {
+"cells": PoolIntArray( 65536, 0, 0, 65536, 65515, 1, 65542, 65515, 0, 65548, 65515, 1, 65548, 65518, 1, 65548, 65521, 0, 65536, 65525, 0, 65539, 65525, 1, 65542, 65525, 0, 65545, 65525, 1, 65548, 65525, 1, 65536, 65532, 1 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 1, 0 )
 }
 
 [node name="Props" type="Spatial" parent="."]
