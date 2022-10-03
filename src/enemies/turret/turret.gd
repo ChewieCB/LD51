@@ -45,7 +45,7 @@ var debug_trajectory_meshes = []
 
 
 func _ready():
-	PingTimer.connect("timeout", self, "ping_effect")
+	PingTimer.connect("ping", self, "ping_effect")
 	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 	yield(owner, "ready")

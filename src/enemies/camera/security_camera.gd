@@ -52,7 +52,7 @@ onready var initial_rotation = pivot.rotation_degrees
 
 
 func _ready():
-	PingTimer.connect("timeout", self, "ping_effect")
+	PingTimer.connect("ping", self, "ping_effect")
 	state_machine.connect("transitioned", self, "update_state_label")
 #	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
 #	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
