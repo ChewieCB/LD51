@@ -10,42 +10,26 @@ export (bool) var is_sealed = false
 
 func _ready():
 	yield(owner, "ready")
-	set_is_open(is_open)
-
-
-func _input(event):
-	if not can_interact or is_sealed:
-		return
-	if event.is_action_pressed("interact"):
-		match is_open:
-			false:
-				anim_player.play("opening")
-			true:
-				anim_player.play("closing")
-
-
-func _on_Area_body_entered(body):
-	if is_sealed or not GlobalFlags.PLAYER_CONTROLS_ACTIVE:
-		return
-	if body is PlayerController:
-		can_interact = true
-		body.hud.animation_player.play("show_interact")
-
-
-func _on_Area_body_exited(body):
-	if is_sealed or not GlobalFlags.PLAYER_CONTROLS_ACTIVE:
-		return
-	if body is PlayerController:
-		can_interact = false
-		body.hud.animation_player.play("hide_interact")
-
-
-func set_is_open(value):
-	is_open = value
-	if not anim_player:
-		return
 	match is_open:
 		true:
 			anim_player.play("open")
 		false:
 			anim_player.play("close")
+	PingTimer.connect("ping", self, "toggle_door")
+
+
+func toggle_door():
+	if not is_sealed:
+		match is_open:
+			true:
+				anim_player.play("closing")
+				yield(anim_player, "animation_finished")
+				is_open = false
+			false:
+				anim_player.play("opening")
+				yield(anim_player, "animation_finished")
+				is_open = true
+
+
+func set_is_open(value):
+	is_open = value

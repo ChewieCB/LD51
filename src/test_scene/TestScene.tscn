@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/models/environment/props/Desk.glb" type="PackedScene" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
@@ -19,9 +19,6 @@
 [ext_resource path="res://assets/models/environment/prop_gridmap.tres" type="MeshLibrary" id=17]
 [ext_resource path="res://src/props/Crate.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/models/environment/walls/Pipes.glb" type="PackedScene" id=19]
-[ext_resource path="res://assets/audio/enemies/camera/Camera_Movement_Test_2.wav" type="AudioStream" id=20]
-[ext_resource path="res://assets/audio/enemies/camera/Camera_Movement_Test_1.wav" type="AudioStream" id=21]
-[ext_resource path="res://assets/audio/enemies/camera/Camera_Destroyed_1.wav" type="AudioStream" id=22]
 
 [sub_resource type="PanoramaSky" id=7]
 radiance_size = 4
@@ -34,444 +31,6 @@ ambient_light_color = Color( 0.941176, 0.941176, 0.941176, 1 )
 ambient_light_energy = 0.5
 ambient_light_sky_contribution = 0.0
 adjustment_enabled = true
-
-[sub_resource type="Animation" id=8]
-resource_name = "death"
-tracks/0/type = "audio"
-tracks/0/path = NodePath("AudioStreamPlayer3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 22 )
-} ],
-"times": PoolRealArray( -0.1 )
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:monitoring")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 0.353, 1, 2.46 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( -65, 0, 14 ), Vector3( -32, 0, -23 ), Vector3( -45, 0, 23 ) ]
-}
-
-[sub_resource type="Animation" id=9]
-resource_name = "default"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:monitoring")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "find"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -180 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh/EyePivot:translation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( -5.96046e-08, 0, -3.78926e-15 ), Vector3( 0, 0, -0.1 ), Vector3( -5.96046e-08, 0, -3.78926e-15 ) ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "lose"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 12, 0 ), Vector3( 0, -12, 0 ), Vector3( 0, 12, 0 ), Vector3( 0, -12, 0 ), Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=12]
-resource_name = "rotate"
-length = 8.0
-loop = true
-step = 0.5
-tracks/0/type = "audio"
-tracks/0/path = NodePath("AudioStreamPlayer3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 21 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 20 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 20 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 21 )
-} ],
-"times": PoolRealArray( 0, 2, 4, 6 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("AudioStreamPlayer3D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AudioStreamPlayer3D:stream")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 2, 4, 6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ ExtResource( 21 ), ExtResource( 20 ), ExtResource( 20 ), ExtResource( 21 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("AudioStreamPlayer3D:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 7 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "death"
-tracks/0/type = "audio"
-tracks/0/path = NodePath("AudioStreamPlayer3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 22 )
-} ],
-"times": PoolRealArray( -0.1 )
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:monitoring")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 0.353, 1, 2.46 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( -65, 0, 14 ), Vector3( -32, 0, -23 ), Vector3( -45, 0, 23 ) ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "default"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:monitoring")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=15]
-resource_name = "find"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -180 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Mesh/EyePivot:translation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( -5.96046e-08, 0, -3.78926e-15 ), Vector3( 0, 0, -0.1 ), Vector3( -5.96046e-08, 0, -3.78926e-15 ) ]
-}
-
-[sub_resource type="Animation" id=16]
-resource_name = "lose"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 12, 0 ), Vector3( 0, -12, 0 ), Vector3( 0, 12, 0 ), Vector3( 0, -12, 0 ), Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=17]
-resource_name = "rotate"
-length = 8.0
-loop = true
-step = 0.5
-tracks/0/type = "audio"
-tracks/0/path = NodePath("AudioStreamPlayer3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 21 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 20 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 20 )
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 21 )
-} ],
-"times": PoolRealArray( 0, 2, 4, 6 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("AudioStreamPlayer3D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AudioStreamPlayer3D:stream")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 2, 4, 6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ ExtResource( 21 ), ExtResource( 20 ), ExtResource( 20 ), ExtResource( 21 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("AudioStreamPlayer3D:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 7 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, -60, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
-}
 
 [node name="TestScene" type="Spatial"]
 
@@ -491,59 +50,19 @@ environment = SubResource( 3 )
 
 [node name="SecurityCamera" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 27.9, -31.5 )
-
-[node name="EyePivot" parent="Cameras/SecurityCamera/Mesh" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="Viewcone" parent="Cameras/SecurityCamera/Mesh/EyePivot/CameraEye" index="0"]
-transform = Transform( 8.74228e-07, -20, 3.01992e-06, -20, -8.74228e-07, 8.74224e-07, -8.74224e-07, -3.01992e-06, -20, 18.8612, 0.0660858, 0.00282335 )
-
-[node name="SecurityCamera2" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
-transform = Transform( 0.996195, 0, -0.0871558, 0, 1, 0, 0.0871558, 0, 0.996195, 4.65, 22.05, -21.102 )
-linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
-min_elevation = -70.0
-max_elevation = 70.0
-min_rotation = -70.0
-max_rotation = -70.0
-
-[node name="Mesh" parent="Cameras/SecurityCamera2" index="2"]
-transform = Transform( 0.918216, 0, 0.39608, 0, 1, 0, -0.39608, 0, 0.918216, 0, 0, 0 )
-
-[node name="EyePivot" parent="Cameras/SecurityCamera2/Mesh" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="Viewcone" parent="Cameras/SecurityCamera2/Mesh/EyePivot/CameraEye" index="0"]
-transform = Transform( 8.74228e-07, -20, 3.01992e-06, -20, -8.74228e-07, 8.74224e-07, -8.74224e-07, -3.01992e-06, -20, 18.2612, 0.0660858, 0.00282288 )
-
-[node name="AnimationPlayer" parent="Cameras/SecurityCamera2" index="5"]
-anims/death = SubResource( 8 )
-anims/default = SubResource( 9 )
-anims/find = SubResource( 10 )
-anims/lose = SubResource( 11 )
-anims/rotate = SubResource( 12 )
+linked_turrets = [ NodePath("../../Turrets/Turret12"), NodePath("../../Turrets/Turret13") ]
 
 [node name="SecurityCamera3" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 25.8, -21.2763 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 25.8, -21.2763 )
 linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
 
-[node name="CameraBase" parent="Cameras/SecurityCamera3" index="1"]
-transform = Transform( -1.09278e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.09278e-08, 0, 0, 0.1 )
+[node name="SecurityCamera4" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.7, 27.75, -27.5763 )
+linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
 
-[node name="Mesh" parent="Cameras/SecurityCamera3" index="2"]
-transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0, 0 )
-
-[node name="EyePivot" parent="Cameras/SecurityCamera3/Mesh" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="Viewcone" parent="Cameras/SecurityCamera3/Mesh/EyePivot/CameraEye" index="0"]
-transform = Transform( 8.74228e-07, -20, 3.01992e-06, -20, -8.74228e-07, 8.74224e-07, -8.74224e-07, -3.01992e-06, -20, 18.8612, 0.0660858, 0.00281906 )
-
-[node name="AnimationPlayer" parent="Cameras/SecurityCamera3" index="5"]
-anims/death = SubResource( 13 )
-anims/default = SubResource( 14 )
-anims/find = SubResource( 15 )
-anims/lose = SubResource( 16 )
-anims/rotate = SubResource( 17 )
+[node name="SecurityCamera5" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.85, 22.5, -23.2263 )
+linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
 
 [node name="Turrets" type="Spatial" parent="."]
 
@@ -574,11 +93,11 @@ transform = Transform( 1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, 3.91364, 
 is_active = true
 
 [node name="Turret8" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( 1.94707e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.94707e-07, -8.51092e-15, 5.14457, 24.2407, -25.495 )
+transform = Transform( -2.22045e-15, -1.49012e-08, -1, -7.54979e-08, 1, -1.49012e-08, 1, 7.54979e-08, -3.30012e-15, 4.35871, 26.3951, -25.495 )
 is_active = true
 
 [node name="Turret9" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( 7.54979e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 7.54979e-08, -3.30012e-15, -2.17952, 24.2407, -25.495 )
+transform = Transform( -3.30012e-15, 0, 1, 7.54979e-08, 1, 0, -1, 7.54979e-08, -3.30012e-15, -1.62518, 24.8822, -25.495 )
 is_active = true
 
 [node name="Turret10" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
@@ -589,17 +108,25 @@ is_active = true
 transform = Transform( 0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, 0.766044, -0.679517, 19.6272, -28.495 )
 is_active = true
 
+[node name="Turret12" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
+transform = Transform( -0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, -0.906308, -0.679517, 25.612, -34.495 )
+is_active = true
+
+[node name="Turret13" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
+transform = Transform( -0.422618, 0, -0.906308, 0, 1, 0, 0.906308, 0, -0.422618, 3.82048, 25.612, -34.495 )
+is_active = true
+
 [node name="Doors" type="Spatial" parent="."]
 
 [node name="Door1" parent="Doors" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
+is_open = true
 
 [node name="Door2" parent="Doors" instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, -16.5 )
 
 [node name="Door4" parent="Doors" instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16.5, 0, -16.5 )
-is_open = true
 
 [node name="Door6" parent="Doors" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 18, 0, -28.5 )
@@ -759,6 +286,12 @@ transform = Transform( -1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, 7.05, 1
 [node name="Pipes4" parent="Props/2" instance=ExtResource( 19 )]
 transform = Transform( -1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, 5.55, 19.5, -25.5 )
 
+[node name="Pipes5" parent="Props/2" instance=ExtResource( 19 )]
+transform = Transform( 7.64274e-15, -4, 1.74846e-07, -1.74846e-07, -1.74846e-07, -4, 4, 0, -1.74846e-07, 5.55, 27.15, -25.5 )
+
+[node name="Pipes6" parent="Props/2" instance=ExtResource( 19 )]
+transform = Transform( -3.49691e-07, 4, -1.74846e-07, -1.74846e-07, -1.74846e-07, -4, -4, -3.49691e-07, 1.74846e-07, -2.85, 25.65, -25.5 )
+
 [node name="1" type="Spatial" parent="Props"]
 
 [node name="Desk" parent="Props/1" instance=ExtResource( 1 )]
@@ -880,7 +413,3 @@ width = 0.799537
 height = 0.0482127
 depth = 3.0994
 material = ExtResource( 13 )
-
-[editable path="Cameras/SecurityCamera"]
-[editable path="Cameras/SecurityCamera2"]
-[editable path="Cameras/SecurityCamera3"]

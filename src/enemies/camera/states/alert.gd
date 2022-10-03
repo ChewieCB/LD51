@@ -29,8 +29,9 @@ func physics_update(_delta: float) -> void:
 
 
 func exit() -> void:
-	for turret_path in _actor.linked_turrets:
-		var turret = _actor.get_node(turret_path)
-		if turret.is_active:
-			turret.set_is_active(false)
+	pass
+#	for turret_path in _actor.linked_turrets:
+#		var turret = _actor.get_node(turret_path)
+#		if turret.is_active:
+#			turret.set_is_active(false)
 #	_actor.anim_player.play("lose")
