@@ -10,9 +10,8 @@ extends State
 export var max_speed = 50
 export var move_speed = 20
 export var gravity = 0.0
-export var jump_impulse = 35
 export (float, 0.1, 20.0, 0.1) var rotation_speed_factor := 2.0
-export (int, 0, 200) var inertia = 0.7
+export (int, 0, 200) var inertia = 0.9
 
 var velocity := Vector3.ZERO
 var h_velocity := Vector3.ZERO
