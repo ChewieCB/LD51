@@ -9,11 +9,12 @@ func enter(_msg := {}) -> void:
 	if _actor.has_seen_player:
 		for turret_path in _actor.linked_turrets:
 			var turret = _actor.get_node(turret_path)
-			turret.target = _actor.target
-			if not turret.is_active:
-				turret.set_is_active(true)
-			turret.state_machine.transition_to("Shooting")
-			turret.state_machine.transition_to("Alert")
+			if turret:
+				turret.target = _actor.target
+				if not turret.is_active:
+					turret.set_is_active(true)
+				turret.state_machine.transition_to("Shooting")
+				turret.state_machine.transition_to("Alert")
 
 
 func update(delta: float) -> void:

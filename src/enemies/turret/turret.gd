@@ -49,8 +49,6 @@ func _ready():
 	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 	yield(owner, "ready")
-	if is_active:
-		activate()
 
 
 #func _process(delta):
@@ -89,7 +87,10 @@ func _get_local_y():
 
 
 func activate():
-	state_machine.transition_to("Alert")
+	if has_seen_player:
+		state_machine.transition_to("Alert")
+	else:
+		state_machine.transition_to("Idle")
 
 
 func deactivate():
@@ -160,8 +161,8 @@ func clear_debug_trajectory():
 
 
 func destroy():
-	pass
-#	self.queue_free()
+	yield(get_tree().create_timer(1.0), "timeout")
+	self.queue_free()
 
 
 func update_state_label(state_name) -> void:

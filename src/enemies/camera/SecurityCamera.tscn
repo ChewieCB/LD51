@@ -113,24 +113,12 @@ tracks/1/keys = {
 "values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:visible")
+tracks/2/path = NodePath("Mesh/EyePivot:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Mesh/EyePivot:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0, 0.2, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 0.353, 1, 2.46 ),
 "update": 0,
@@ -147,10 +135,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( -1.6 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Mesh/EyePivot/CameraEye/Viewcone:monitoring")
@@ -327,6 +315,7 @@ lost_sfx = ExtResource( 18 )
 
 [node name="StateLabel" type="Label3D" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0 )
+visible = false
 text = "STATE"
 font = SubResource( 15 )
 
@@ -399,7 +388,7 @@ mesh = SubResource( 8 )
 material/0 = SubResource( 9 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 max_db = 0.0
 
 [connection signal="body_entered" from="Mesh/EyePivot/CameraEye/Viewcone" to="." method="_on_Viewcone_body_entered"]

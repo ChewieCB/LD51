@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/models/environment/props/Desk.glb" type="PackedScene" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://assets/models/environment/props/ComputerRack01.glb" type="PackedScene" id=15]
 [ext_resource path="res://src/props/door_control/DoorControl.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/models/environment/prop_gridmap.tres" type="MeshLibrary" id=17]
-[ext_resource path="res://src/props/Crate.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/models/environment/walls/Pipes.glb" type="PackedScene" id=19]
 
 [sub_resource type="PanoramaSky" id=7]
@@ -57,27 +56,17 @@ linked_turrets = [ NodePath("../../Turrets/Turret12"), NodePath("../../Turrets/T
 
 [node name="SecurityCamera3" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 25.8, -21.2763 )
-linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
+linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9") ]
 
 [node name="SecurityCamera4" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.7, 27.75, -27.5763 )
-linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
+linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9") ]
 
 [node name="SecurityCamera5" parent="Cameras" groups=["Enemy"] instance=ExtResource( 14 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.85, 22.5, -23.2263 )
-linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9"), NodePath("../../Turrets/Turret10"), NodePath("../../Turrets/Turret11") ]
+linked_turrets = [ NodePath("../../Turrets/Turret8"), NodePath("../../Turrets/Turret9") ]
 
 [node name="Turrets" type="Spatial" parent="."]
-
-[node name="Turret1" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( 1, -2.38419e-07, 0, 2.38419e-07, 1, 0, 0, 0, 1, 2.21732e-07, 0.154447, -7.6 )
-is_active = true
-
-[node name="Turret2" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( 1, -2.38419e-07, 0, 2.38419e-07, 1, 0, 0, 0, 1, 2.21732e-07, 0.154447, -11.2 )
-
-[node name="Turret3" parent="Turrets" instance=ExtResource( 8 )]
-transform = Transform( 1, -2.38419e-07, 0, 2.38419e-07, 1, 0, 0, 0, 1, -1.35896e-07, 0.109687, -15.7 )
 
 [node name="Turret4" parent="Turrets" instance=ExtResource( 8 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.821645, 6.23117, -40.5 )
@@ -101,14 +90,6 @@ is_active = true
 
 [node name="Turret9" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
 transform = Transform( -3.30012e-15, 0, 1, 7.54979e-08, 1, 0, -1, 7.54979e-08, -3.30012e-15, -1.62518, 24.8822, -25.495 )
-is_active = true
-
-[node name="Turret10" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 3.82048, 19.6272, -22.495 )
-is_active = true
-
-[node name="Turret11" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( 0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, 0.766044, -0.679517, 19.6272, -28.495 )
 is_active = true
 
 [node name="Turret12" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
@@ -361,21 +342,6 @@ transform = Transform( -0.499788, 0, 0.0145423, 0, 0.5, 0, -0.0145423, 0, -0.499
 
 [node name="Door Control" parent="Props/0" instance=ExtResource( 16 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 0.6, -15.6 )
-
-[node name="Crate" parent="Props/0" instance=ExtResource( 18 )]
-transform = Transform( 0.482963, 0.483283, -0.730195, -0.258819, 0.875426, 0.408218, 0.836516, -0.00816579, 0.547881, 0.6, 0.75, -6 )
-
-[node name="Crate2" parent="Props/0" instance=ExtResource( 18 )]
-transform = Transform( -0.34202, 0.851651, 0.397131, -0.883022, -0.435826, 0.174149, 0.321394, -0.291113, 0.901088, 0.15, 0, -8.4 )
-
-[node name="Crate3" parent="Props/0" instance=ExtResource( 18 )]
-transform = Transform( 0.88895, 0.411577, 0.200927, -0.357551, 0.349471, 0.866041, 0.286225, -0.841709, 0.457822, -0.45, 0.75, -10.2 )
-
-[node name="Crate5" parent="Props/0" instance=ExtResource( 18 )]
-transform = Transform( 0.692717, -0.720635, 0.0287775, -0.136779, -0.0920934, 0.986311, -0.708121, -0.687171, -0.162363, 0.75, 0, -12.15 )
-
-[node name="Crate4" parent="Props/0" instance=ExtResource( 18 )]
-transform = Transform( -0.47554, -0.539602, -0.69476, 0.831827, -0.0188552, -0.554714, 0.286225, -0.841709, 0.457822, -0.45, 0.75, -13.5 )
 
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.352226, 24.7749, -40.5 )
