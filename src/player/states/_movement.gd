@@ -8,10 +8,10 @@ extends State
 # TODO: Make these null and raise an exception to indicate bad State extension
 #       to better separate movement vars.
 export var max_speed = 50
-export var move_speed = 20
+export var move_speed = 10
 export var gravity = 0.0
 export (float, 0.1, 20.0, 0.1) var rotation_speed_factor := 2.0
-export (int, 0, 200) var inertia = 0.9
+export (int, 0, 200) var inertia = 0.7
 
 var velocity := Vector3.ZERO
 var h_velocity := Vector3.ZERO

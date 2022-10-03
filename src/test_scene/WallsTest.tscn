@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/props/door/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/models/environment/walls/Edge Top.glb" type="PackedScene" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://src/player/PlayerRig.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/models/environment/walls/Hatch Top.glb" type="PackedScene" id=16]
+[ext_resource path="res://assets/models/environment/walls/Corridor Vertical.glb" type="PackedScene" id=17]
+[ext_resource path="res://assets/models/environment/walls/Hatch Bottom.glb" type="PackedScene" id=18]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 0.721569, 0.933333, 0.376471, 1 )
@@ -214,9 +217,6 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 0
 [node name="Ceiling5" parent="Geom" instance=ExtResource( 8 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 3, -3 )
 
-[node name="Ceiling6" parent="Geom" instance=ExtResource( 8 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 4.76837e-07, 3, -4.5 )
-
 [node name="Ceiling7" parent="Geom" instance=ExtResource( 8 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -1.5, 3, -3 )
 
@@ -258,6 +258,15 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 1.
 
 [node name="Wall7" parent="Geom" instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 1.5, -3 )
+
+[node name="Corridor Vertical" parent="Geom" instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -4.5 )
+
+[node name="Hatch Bottom" parent="Geom" instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -4.5 )
+
+[node name="Hatch Top" parent="Geom" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -4.5 )
 
 [node name="PlayerRig" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3 )
