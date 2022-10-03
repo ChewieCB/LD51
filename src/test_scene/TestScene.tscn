@@ -58,10 +58,10 @@ linked_turrets = [ NodePath("../../Turrets/Turret1"), NodePath("../../Turrets/Tu
 [node name="Turrets" type="Spatial" parent="."]
 
 [node name="Turret1" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( -0.5, 7.54979e-08, 0, -7.54979e-08, -0.5, 0, 0, 0, 0.5, -1.35896e-07, 1.7, -6.7 )
+transform = Transform( 1, -2.38419e-07, 0, 2.38419e-07, 1, 0, 0, 0, 1, 2.21732e-07, 0.154447, -6.7 )
 
 [node name="Turret2" parent="Turrets" groups=["Enemy"] instance=ExtResource( 8 )]
-transform = Transform( -0.5, 7.54979e-08, 0, -7.54979e-08, -0.5, 0, 0, 0, 0.5, -1.35896e-07, 1.7, -11.2 )
+transform = Transform( 1, -2.38419e-07, 0, 2.38419e-07, 1, 0, 0, 0, 1, 2.21732e-07, 0.154447, -11.2 )
 
 [node name="Turret3" parent="Turrets" instance=ExtResource( 8 )]
 transform = Transform( -0.5, 7.54979e-08, 0, -7.54979e-08, -0.5, 0, 0, 0, 0.5, -1.35896e-07, 1.7, -11.2 )
