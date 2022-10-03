@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Impact_1.mp3-e5e77161e08ff298dade5c0af812222d.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/player/Impact_1.mp3"
+dest_files=[ "res://.import/Impact_1.mp3-e5e77161e08ff298dade5c0af812222d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
