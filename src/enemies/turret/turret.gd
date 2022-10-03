@@ -75,7 +75,7 @@ func _rotate_guns(delta, speed):
 
 func _get_global_x():
 	var local_target = target.global_transform.origin - eye_mesh.global_transform.origin
-	local_target.y -= 0.5
+#	local_target.y -= 0.5
 	return (local_target * Vector3(1, 0, 1)).angle_to(local_target) * sign(local_target.y)
 
 

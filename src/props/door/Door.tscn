@@ -385,7 +385,7 @@ collision_mask = 7
 shape = SubResource( 11 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "close"
+autoplay = "RESET"
 anims/RESET = SubResource( 5 )
 anims/close = SubResource( 8 )
 anims/closing = SubResource( 6 )

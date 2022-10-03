@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://src/utils/state_machine/state_machine.gd" type="Script" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://assets/audio/weapons/rifle/Player_Fire_2.wav" type="AudioStream" id=13]
 [ext_resource path="res://assets/audio/weapons/rifle/Player_Fire_3.wav" type="AudioStream" id=14]
 [ext_resource path="res://src/ui/hud/HUD.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/audio/player/Zero_G_Propul_3.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/audio/player/Zero_G_Propul_2.wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/audio/player/Zero_G_Propul_1.wav" type="AudioStream" id=18]
+[ext_resource path="res://assets/audio/player/Zero_G_Propul_4.wav" type="AudioStream" id=19]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "ScifiRifle_Cube013"
@@ -100,14 +104,11 @@ vertex_color_use_as_albedo = true
 radius = 0.25
 height = 0.8
 
-[sub_resource type="CylinderShape" id=5]
-height = 0.5
-radius = 0.25
-
 [node name="PlayerController" type="KinematicBody"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+movement_sfx = [ ExtResource( 18 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 19 ) ]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -149,7 +150,7 @@ stretch_mode = 4
 [node name="HUD" parent="UI" instance=ExtResource( 15 )]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.401004 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.165, 0.92, 0.401004 )
 cull_mask = 1048573
 current = true
 fov = 90.0
@@ -163,7 +164,7 @@ sway_left = Vector3( 0, 0.1, 0 )
 sway_right = Vector3( 0, -0.1, 0 )
 
 [node name="ScifiRifle" type="Spatial" parent="Camera/Hand"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.3, -0.85, -0.3 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.3, -0.9, -0.3 )
 
 [node name="Rifle" type="MeshInstance" parent="Camera/Hand/ScifiRifle"]
 transform = Transform( 0.75, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -208,6 +209,7 @@ anims/fire = SubResource( 7 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
+unit_db = -16.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -217,18 +219,14 @@ initial_state = NodePath("Movement")
 script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.05, 0.45 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.365, 0.45 )
 generate_lightmap = false
 mesh = SubResource( 8 )
 material/0 = SubResource( 9 )
 
 [node name="BodyCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.05, 0.45 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.365, 0.45 )
 shape = SubResource( 4 )
-
-[node name="FootCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29737, 0.45 )
-shape = SubResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -245,7 +243,7 @@ render_target_update_mode = 3
 shadow_atlas_size = 4096
 
 [node name="GunCamera" type="Camera" parent="CanvasLayer/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00423318, 0.349334, 0.401566 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.160767, 0.919334, 0.401566 )
 cull_mask = 2
 fov = 90.0
 script = ExtResource( 4 )

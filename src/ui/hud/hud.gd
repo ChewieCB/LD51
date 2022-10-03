@@ -1,5 +1,5 @@
 extends Control
 
-onready var health_val_label = $MarginContainer/CenterContainer/HBoxContainer/HealthValueContainer/Label
+onready var health_bar = $MarginContainer/CenterContainer/HealthBar
 
 onready var animation_player = $AnimationPlayer

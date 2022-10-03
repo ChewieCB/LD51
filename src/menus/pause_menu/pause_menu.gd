@@ -35,12 +35,12 @@ func _ready():
 		_button.connect("focus_entered", audio_player, "cursor")
 
 
-func _process(_delta):
-	if Input.is_action_just_pressed("pause"):
+func _physics_process(_delta):
+	if Input.is_action_just_released("pause"):
 		toggle_pause_menu()
 
 
-func _input(_event):
+func _process(_delta):
 	if get_tree().paused:
 		if Input.is_action_just_released("ui_down") or \
 		Input.is_action_just_released("ui_up"):
