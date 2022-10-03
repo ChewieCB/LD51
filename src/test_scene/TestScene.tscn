@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/test_scene/test_script.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/music/mystery.mp3" type="AudioStream" id=2]
@@ -7,9 +7,16 @@
 [ext_resource path="res://src/dialog_system/dialog_ui/NPCDialog.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/models/environment/modular_level_tiles.tres" type="MeshLibrary" id=6]
 [ext_resource path="res://src/props/door/Door.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/models/environment/props/ComputerRack01.glb" type="PackedScene" id=8]
 [ext_resource path="res://assets/HDRI/satara_night_no_lamps_2k.hdr" type="Texture" id=9]
 [ext_resource path="res://src/enemies/camera/SecurityCamera.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/enemies/turret/Turret.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/models/environment/props/Computer.glb" type="PackedScene" id=12]
+[ext_resource path="res://assets/models/environment/props/Chair.glb" type="PackedScene" id=13]
+[ext_resource path="res://assets/models/environment/props/GarbageCan.glb" type="PackedScene" id=14]
+[ext_resource path="res://assets/models/environment/props/ChairEnd.glb" type="PackedScene" id=15]
+[ext_resource path="res://assets/models/environment/props/Desk.glb" type="PackedScene" id=16]
+[ext_resource path="res://assets/models/environment/props/DeskLamp01.glb" type="PackedScene" id=17]
 
 [sub_resource type="PanoramaSky" id=7]
 radiance_size = 4
@@ -125,5 +132,101 @@ quality = 3
 environment_mode = 1
 environment_min_light = Color( 0.164706, 0.196078, 0.129412, 1 )
 capture_quality = 2
+
+[node name="ComputerRack01" parent="." instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.7874, 0.2, -4.11561 )
+
+[node name="ComputerRack02" parent="." instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.7762, 0.2, -2.34216 )
+
+[node name="Chair" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, 0 )
+
+[node name="Chair7" parent="." instance=ExtResource( 13 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.68836, 0.16873, -3.1479 )
+
+[node name="Chair2" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -1 )
+
+[node name="Chair3" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -2 )
+
+[node name="ChairEnd" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, 0 )
+
+[node name="ChairEnd5" parent="." instance=ExtResource( 15 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.67331, 0.16873, -3.14966 )
+
+[node name="ChairEnd6" parent="." instance=ExtResource( 15 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5499, 0.16873, -3.14966 )
+
+[node name="ChairEnd2" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -3.13656 )
+
+[node name="Chair4" parent="." instance=ExtResource( 13 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -2.98261 )
+
+[node name="Chair5" parent="." instance=ExtResource( 13 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -1.98261 )
+
+[node name="Chair6" parent="." instance=ExtResource( 13 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -0.982608 )
+
+[node name="ChairEnd3" parent="." instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -2.98261 )
+
+[node name="ChairEnd4" parent="." instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, 0.153953 )
+
+[node name="Chair8" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -7.40681 )
+
+[node name="Chair9" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -8.40681 )
+
+[node name="Chair10" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -9.40681 )
+
+[node name="ChairEnd7" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -7.40681 )
+
+[node name="ChairEnd8" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15696, 0.16873, -10.5434 )
+
+[node name="Chair11" parent="." instance=ExtResource( 13 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -10.3894 )
+
+[node name="Chair12" parent="." instance=ExtResource( 13 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -9.38942 )
+
+[node name="Chair13" parent="." instance=ExtResource( 13 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -8.38942 )
+
+[node name="ChairEnd9" parent="." instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -10.3894 )
+
+[node name="ChairEnd10" parent="." instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.16461, 0.16873, -7.25286 )
+
+[node name="GarbageCan" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11292, 0.200219, 0.885845 )
+
+[node name="GarbageCan3" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11467, 0.200218, -6.82476 )
+
+[node name="GarbageCan2" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117257, 0.200219, -3.68828 )
+
+[node name="GarbageCan4" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.814, 0.200219, -9.44698 )
+
+[node name="DeskLamp01" parent="." instance=ExtResource( 17 )]
+transform = Transform( -0.889257, 0, 0.457408, 0, 1, 0, -0.457408, 0, -0.889257, 13.2477, 1.69563, -6.84964 )
+
+[node name="Computer" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.986265, 0, 0.165168, 0, 1, 0, -0.165168, 0, -0.986265, 12.8852, 1.68339, -5.69387 )
+
+[node name="Desk" parent="." instance=ExtResource( 16 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 12.9799, 0.196544, -7.04717 )
 
 [editable path="Cameras/SecurityCamera"]
