@@ -27,6 +27,8 @@ onready var debug_menu = $UI/DebugMenu
 onready var hit_screen = $UI/HitScreen
 onready var hud = $UI/HUD
 
+export (Array, AudioStream) var movement_sfx
+
 const SNAP_DIRECTION = Vector3.DOWN
 const SNAP_LENGTH = 32
 
@@ -54,6 +56,21 @@ func _physics_process(delta) -> void:
 	gun_camera.global_transform = camera.global_transform
 
 
+func play_random_move_sfx():
+	# If we already have a stream set, remove it
+	var existing_sfx = []
+	for element in movement_sfx:
+		existing_sfx.append(element)
+	
+	if audio_player.stream:
+		existing_sfx.erase(audio_player.stream)
+	
+	var rand_idx = int(rand_range(0, existing_sfx.size()))
+	audio_player.stream = existing_sfx[rand_idx]
+	audio_player.play()
+		
+
+
 func set_inertia(value):
 	movement_state.inertia = value
 
@@ -68,7 +85,7 @@ func set_health(value):
 		
 	health = clamp(value, 0, max_health)
 	
-	hud.health_val_label.text = str(health)
+	hud.health_bar.value = health
 	
 	if health == 0:
 		print("You died!")
