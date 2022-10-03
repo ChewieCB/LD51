@@ -4,7 +4,9 @@ class_name PlayerController
 onready var mesh = $MeshInstance
 onready var collider = $BodyCollider
 onready var tween = $Tween
-onready var audio_player = $AudioStreamPlayer3D
+onready var jet_audio_player = $JetPlayer
+onready var impact_audio_player = $ImpactPlayer
+onready var injury_audio_player = $InjuryPlayer
 onready var gun_audio_player = $Camera/Hand/GunAudioPlayer
 
 onready var hue = 0
@@ -26,8 +28,12 @@ onready var movement_state = $StateMachine/Movement
 onready var debug_menu = $UI/DebugMenu
 onready var hit_screen = $UI/HitScreen
 onready var hud = $UI/HUD
+onready var game_over = $UI/GameOver
 
 export (Array, AudioStream) var movement_sfx
+export (Array, AudioStream) var impact_sfx
+export (Array, AudioStream) var hurt_sfx
+export (AudioStream) var death_sfx
 
 const SNAP_DIRECTION = Vector3.DOWN
 const SNAP_LENGTH = 32
@@ -56,19 +62,31 @@ func _physics_process(delta) -> void:
 	gun_camera.global_transform = camera.global_transform
 
 
-func play_random_move_sfx():
+func play_random_sfx(player: AudioStreamPlayer3D, sfx_array: Array):
 	# If we already have a stream set, remove it
 	var existing_sfx = []
-	for element in movement_sfx:
+	for element in sfx_array:
 		existing_sfx.append(element)
 	
-	if audio_player.stream:
-		existing_sfx.erase(audio_player.stream)
+	if player.stream:
+		existing_sfx.erase(player.stream)
 	
 	var rand_idx = int(rand_range(0, existing_sfx.size()))
-	audio_player.stream = existing_sfx[rand_idx]
-	audio_player.play()
-		
+	player.stream = existing_sfx[rand_idx]
+	player.play()
+
+
+func game_over():
+	game_over.anim_player.play("fade_in")
+	GlobalFlags.PLAYER_CONTROLS_ACTIVE = false
+	GlobalFlags.CAMERA_CONTROLS_ACTIVE = false
+	yield(game_over.anim_player, "animation_finished")
+	yield(get_tree().create_timer(1.0), "timeout")
+	game_over.anim_player.play("fade_out")
+	yield(game_over.anim_player, "animation_finished")
+	GlobalFlags.PLAYER_CONTROLS_ACTIVE = true
+	GlobalFlags.CAMERA_CONTROLS_ACTIVE = true
+	get_tree().reload_current_scene()
 
 
 func set_inertia(value):
@@ -82,12 +100,13 @@ func set_speed(value):
 func set_health(value):
 	if value < health:
 		hit_screen.hit()
+		play_random_sfx(impact_audio_player, impact_sfx)
+		play_random_sfx(injury_audio_player, hurt_sfx)
 		
 	health = clamp(value, 0, max_health)
 	
 	hud.health_bar.value = health
 	
 	if health == 0:
-		print("You died!")
-		# TODO - add game over/proper restart
-		get_tree().reload_current_scene()
+		play_random_sfx(injury_audio_player, [death_sfx])
+		game_over()

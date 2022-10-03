@@ -36,7 +36,7 @@ func physics_update(delta: float):
 	
 	for action in ["move_forward", "move_backward", "move_left", "move_right", "move_up", "move_down"]:
 		if Input.is_action_just_pressed(action):
-			_actor.play_random_move_sfx()
+			_actor.play_random_sfx(_actor.jet_audio_player, _actor.movement_sfx)
 			break
 	
 	move_direction = calculate_movement_direction(input_direction, delta)

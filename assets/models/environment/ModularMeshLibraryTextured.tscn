@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://assets/models/environment/walls/Rubber.material" type="Material" id=2]
 [ext_resource path="res://assets/models/environment/walls/Metal Soft.material" type="Material" id=5]
@@ -365,9 +365,28 @@ surfaces/0 = {
 [sub_resource type="ConcavePolygonShape" id=28]
 data = PoolVector3Array( -0.75, -0.75, 0, 0.75, 0.75, 0, 0.75, -0.75, 0, -0.75, -0.75, 0, -0.75, 0.75, 0, 0.75, 0.75, 0 )
 
+[sub_resource type="ArrayMesh" id=30]
+resource_name = "Wall with Door Bottom_Plane004"
+surfaces/0 = {
+"aabb": AABB( -0.75, -0.75, -5.66234e-08, 1.5, 1.5, 1.01132e-05 ),
+"array_data": PoolByteArray( 0, 0, 64, 191, 0, 0, 64, 191, 30, 50, 115, 51, 0, 0, 127, 63, 0, 0, 0, 60, 0, 0, 64, 63, 0, 0, 64, 191, 30, 50, 115, 51, 0, 0, 126, 63, 0, 60, 0, 60, 0, 0, 64, 191, 0, 0, 64, 63, 30, 50, 115, 179, 0, 0, 126, 63, 0, 0, 0, 0, 0, 0, 64, 63, 0, 0, 64, 63, 30, 50, 115, 179, 0, 0, 127, 63, 0, 60, 0, 0, 0, 0, 64, 191, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 126, 63, 0, 0, 0, 56, 0, 0, 64, 191, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 127, 63, 0, 0, 0, 56, 0, 0, 64, 63, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 126, 63, 0, 60, 0, 56, 0, 0, 64, 63, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 127, 63, 0, 60, 0, 56, 184, 30, 5, 191, 0, 0, 64, 191, 0, 0, 0, 128, 0, 0, 127, 193, 0, 0, 0, 60, 184, 30, 5, 191, 0, 0, 64, 191, 0, 0, 0, 128, 0, 0, 127, 63, 85, 49, 0, 60, 184, 30, 5, 63, 0, 0, 64, 191, 0, 0, 0, 128, 0, 0, 126, 63, 170, 58, 0, 60, 184, 30, 5, 63, 0, 0, 64, 191, 0, 0, 0, 128, 0, 0, 127, 193, 0, 0, 0, 60, 184, 30, 5, 63, 0, 0, 64, 63, 0, 0, 0, 128, 0, 0, 127, 63, 170, 58, 0, 0, 184, 30, 5, 191, 0, 0, 64, 63, 0, 0, 0, 128, 0, 0, 126, 63, 85, 49, 0, 0, 184, 30, 5, 63, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 126, 63, 170, 58, 0, 56, 184, 30, 5, 63, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 127, 193, 0, 0, 0, 60, 184, 30, 5, 63, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 127, 63, 170, 58, 0, 56, 184, 30, 5, 191, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 126, 63, 85, 49, 0, 56, 184, 30, 5, 191, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 127, 193, 0, 0, 0, 60, 184, 30, 5, 191, 174, 71, 33, 191, 0, 0, 0, 128, 0, 0, 127, 63, 85, 49, 0, 56 ),
+"array_index_data": PoolByteArray( 16, 0, 3, 0, 7, 0, 16, 0, 12, 0, 3, 0, 10, 0, 6, 0, 1, 0, 10, 0, 14, 0, 6, 0, 0, 0, 19, 0, 9, 0, 0, 0, 5, 0, 19, 0, 4, 0, 13, 0, 17, 0, 4, 0, 2, 0, 13, 0, 11, 0, 18, 0, 15, 0, 11, 0, 8, 0, 18, 0 ),
+"blend_shape_data": [  ],
+"format": 2194711,
+"index_count": 30,
+"material": ExtResource( 16 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 20
+}
+
+[sub_resource type="ConcavePolygonShape" id=31]
+data = PoolVector3Array( 0.52, -0.63, 0, 0.75, 0.75, 0, 0.75, -0.63, 0, 0.52, -0.63, 0, 0.52, 0.75, 0, 0.75, 0.75, 0, 0.52, -0.75, 0, 0.75, -0.63, 0, 0.75, -0.75, 0, 0.52, -0.75, 0, 0.52, -0.63, 0, 0.75, -0.63, 0, -0.75, -0.75, 0, -0.52, -0.63, 0, -0.52, -0.75, 0, -0.75, -0.75, 0, -0.75, -0.63, 0, -0.52, -0.63, 0, -0.75, -0.63, 0, -0.52, 0.75, 0, -0.52, -0.63, 0, -0.75, -0.63, 0, -0.75, 0.75, 0, -0.52, 0.75, 0, 0.52, -0.75, 0, -0.52, -0.63, 0, 0.52, -0.63, 0, 0.52, -0.75, 0, -0.52, -0.75, 0, -0.52, -0.63, 0 )
+
 [node name="ModularMeshLibrary" type="Spatial"]
 
 [node name="Ceiling" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 
@@ -379,6 +398,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.630527, 0 )
 shape = SubResource( 29 )
 
 [node name="Corner Bottom" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 3 )
 skeleton = NodePath("")
 
@@ -389,6 +409,7 @@ collision_mask = 7
 shape = SubResource( 4 )
 
 [node name="Corner Top" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 5 )
 skeleton = NodePath("")
 
@@ -400,6 +421,7 @@ shape = SubResource( 6 )
 
 [node name="Corridor Vertical" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0 )
+visible = false
 mesh = SubResource( 7 )
 skeleton = NodePath("")
 
@@ -410,6 +432,7 @@ collision_mask = 7
 shape = SubResource( 8 )
 
 [node name="Edge Bottom With Door" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 9 )
 skeleton = NodePath("")
 
@@ -420,6 +443,7 @@ collision_mask = 7
 shape = SubResource( 10 )
 
 [node name="Edge Bottom" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 11 )
 skeleton = NodePath("")
 
@@ -430,6 +454,7 @@ collision_mask = 7
 shape = SubResource( 12 )
 
 [node name="Edge Top With Door" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 13 )
 skeleton = NodePath("")
 
@@ -440,6 +465,7 @@ collision_mask = 7
 shape = SubResource( 14 )
 
 [node name="Edge Top" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 15 )
 skeleton = NodePath("")
 
@@ -450,6 +476,7 @@ collision_mask = 7
 shape = SubResource( 16 )
 
 [node name="Floor" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 17 )
 skeleton = NodePath("")
 
@@ -461,6 +488,7 @@ shape = SubResource( 18 )
 
 [node name="Hatch Bottom" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0 )
+visible = false
 mesh = SubResource( 19 )
 skeleton = NodePath("")
 
@@ -472,6 +500,7 @@ shape = SubResource( 20 )
 
 [node name="Hatch Top" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+visible = false
 mesh = SubResource( 21 )
 skeleton = NodePath("")
 
@@ -482,6 +511,7 @@ collision_mask = 7
 shape = SubResource( 22 )
 
 [node name="Wall Corner" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 23 )
 skeleton = NodePath("")
 
@@ -492,6 +522,7 @@ collision_mask = 7
 shape = SubResource( 24 )
 
 [node name="Wall With Door" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 25 )
 skeleton = NodePath("")
 
@@ -502,6 +533,7 @@ collision_mask = 7
 shape = SubResource( 26 )
 
 [node name="Wall" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 27 )
 skeleton = NodePath("")
 
@@ -510,3 +542,14 @@ collision_mask = 7
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall/StaticBody"]
 shape = SubResource( 28 )
+
+[node name="Wall With Door Bottom" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 30 )
+skeleton = NodePath("")
+
+[node name="StaticBody" type="StaticBody" parent="Wall With Door Bottom"]
+collision_mask = 7
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall With Door Bottom/StaticBody"]
+shape = SubResource( 31 )

@@ -29,13 +29,13 @@ export (Material) var alert_transparent_mat
 export var max_health = 200
 export var health = 200 setget set_health
 
-export var damage = 20
+export var damage = 50
 
 export var rotation_speed = deg2rad(65.0) # Since all values are in radians, this needs to be in radians too
 export var slower_rotation_speed = deg2rad(45.0)
 export var faster_rotation_speed = deg2rad(80.0)
 
-var is_active = false setget set_is_active
+export (bool) var is_active = false setget set_is_active
 var can_ping  = false setget set_can_ping
 var has_seen_player = false setget set_has_seen_player
 var can_interact = false
@@ -211,6 +211,8 @@ func set_health(value):
 
 func set_is_active(value):
 	is_active = value
+	if not anim_player:
+		return
 	match is_active:
 		true:
 			activate()
