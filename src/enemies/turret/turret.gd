@@ -41,6 +41,8 @@ var has_seen_player = false setget set_has_seen_player
 var can_interact = false
 var target: PlayerController = null
 
+var is_loaded = true setget set_is_loaded
+
 var debug_trajectory_meshes = []
 
 
@@ -49,13 +51,6 @@ func _ready():
 	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy")
 	yield(owner, "ready")
-
-
-#func _process(delta):
-#	if has_seen_player and target:
-#		# Separate rotation axis to animate the base and the gun components separately
-#		_rotate_base(delta)
-#		_rotate_guns(delta)
 
 
 func _rotate_base(delta, speed):
@@ -227,6 +222,10 @@ func set_is_active(value):
 
 func set_can_ping(value):
 	can_ping = value
+
+
+func set_is_loaded(value):
+	is_loaded = value
 
 
 func _on_InteractionArea_body_entered(body):

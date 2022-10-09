@@ -2,6 +2,8 @@ extends State
 
 
 func enter(_msg := {}) -> void:
+	if not _actor.is_loaded:
+		return
 	_actor.eye_mesh.set_surface_material(1, _actor.idle_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.idle_transparent_mat)
 	# Reset camera position before resuming rotation
@@ -28,4 +30,6 @@ func physics_update(_delta: float) -> void:
 
 
 func exit() -> void:
+	if not _actor.is_loaded:
+		return
 	_actor.anim_player.stop(true)

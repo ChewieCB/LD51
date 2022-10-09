@@ -4,6 +4,8 @@ signal destroyed
 
 
 func enter(_msg := {}) -> void:
+	if not _actor.is_loaded:
+		return
 	_actor.anim_player.play("death")
 	_actor.play_random_death_sfx()
 	yield(_actor.anim_player, "animation_finished")
