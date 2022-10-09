@@ -2,12 +2,16 @@ extends State
 
 
 func enter(_msg := {}) -> void:
+	if not _actor.is_loaded:
+		return
 	_actor.eye_mesh.set_surface_material(1, _actor.tracking_mat)
 	_actor.viewcone_mesh.set_surface_material(0, _actor.tracking_transparent_mat)
 #	_actor.anim_player.play("find")
 
 
 func update(delta: float) -> void:
+	if not _actor.is_loaded:
+		return
 	# update target location
 	_actor._update_target_location()
 	# move

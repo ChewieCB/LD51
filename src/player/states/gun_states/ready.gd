@@ -15,9 +15,10 @@ func physics_update(delta: float):
 			if target.is_in_group("Enemy"):
 				print("Hit " + target.name)
 				target.health -= damage
-			elif target.owner.is_in_group("Enemy"):
-				print("Hit " + target.owner.name)
-				target.owner.health -= damage
+			elif target.owner:
+				if target.owner.is_in_group("Enemy"):
+					print("Hit " + target.owner.name)
+					target.owner.health -= damage
 
 func play_random_shot():
 	if shot_sfx:

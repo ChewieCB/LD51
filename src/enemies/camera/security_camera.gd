@@ -48,6 +48,9 @@ var ttc: float
 var current_target: Vector3
 var current_aim: Vector3
 
+# 
+var is_loaded = true setget set_is_loaded
+
 onready var initial_rotation = pivot.rotation_degrees
 
 
@@ -55,16 +58,6 @@ func _ready():
 	PingTimer.connect("ping", self, "ping_effect")
 	state_machine.connect("transitioned", self, "update_state_label")
 	$StateMachine/Destroyed.connect("destroyed", self, "destroy_camera")
-#	yield(get_tree().create_timer(rand_range(0, 0.5)), "timeout")
-
-
-#func _process(delta):
-#	if has_seen_player and target:
-#		# update target location
-#		_update_target_location()
-#		# move
-#		_rotate(delta)
-#		_elevate(delta)
 
 
 func _update_target_location() -> void:
@@ -136,6 +129,8 @@ func _input(event):
 
 
 func ping_effect():
+	if not is_loaded:
+		return
 	match state_machine.state.name:
 		"Idle":
 			# Flash red to indicate the ping has hit
@@ -166,7 +161,7 @@ func update_state_label(state_name) -> void:
 
 
 func _on_Viewcone_body_entered(body):
-	if state_machine.state.name == "Destroyed":
+	if not is_loaded or state_machine.state.name == "Destroyed":
 		return
 	if body is PlayerController:
 		target = body
@@ -176,7 +171,7 @@ func _on_Viewcone_body_entered(body):
 
 
 func _on_Viewcone_body_exited(body):
-	if state_machine.state.name == "Destroyed":
+	if not is_loaded or state_machine.state.name == "Destroyed":
 		return
 	if body is PlayerController:
 		target = null
@@ -200,12 +195,20 @@ func set_health(value):
 		state_machine.transition_to("Destroyed")
 
 
+func set_is_loaded(value):
+	is_loaded = value
+
+
 func _on_InteractionArea_body_entered(body):
+	if not is_loaded:
+		return
 	if body is PlayerController:
 		can_interact = true
 		print("can interact with " + self.name)
 
 
 func _on_InteractionArea_body_exited(body):
+	if not is_loaded:
+		return
 	if body is PlayerController:
 		can_interact = false

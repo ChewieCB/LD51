@@ -332,6 +332,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -3.78926e-15 
 
 [node name="CameraEye" type="MeshInstance" parent="Mesh/EyePivot"]
 transform = Transform( 1.88745e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, 1.88745e-08, 0, 0, 0 )
+portal_mode = 1
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 material/1 = SubResource( 14 )
@@ -390,6 +391,10 @@ material/0 = SubResource( 9 )
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 15 )
 max_db = 0.0
+
+[node name="VisibilityEnabler" type="VisibilityEnabler" parent="."]
+portal_mode = 1
+max_distance = 20.0
 
 [connection signal="body_entered" from="Mesh/EyePivot/CameraEye/Viewcone" to="." method="_on_Viewcone_body_entered"]
 [connection signal="body_exited" from="Mesh/EyePivot/CameraEye/Viewcone" to="." method="_on_Viewcone_body_exited"]
